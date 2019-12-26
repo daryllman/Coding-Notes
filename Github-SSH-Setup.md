@@ -2,7 +2,7 @@
 
 #### So you don't have to log into github all the time when you are pushing/pulling your code
 
-
+****
 
 For Windows:
 
@@ -37,17 +37,30 @@ For Windows:
    > *The key fingerprint is:*
    > *SHA256:sdsPCneeqsdasdasdOEeeeXjSo yourEmailName@yourEmail.com*
    > *The key's randomart image is:*
+   >
    > +---[RSA 3073]----+
+   >
    > |               .s            |
+   >
    > |                       ...    |
+   >
    > |    .   ...                   |
+   >
    > |   . .r..d   .              |
+   >
    > |  . .  .f +           +    |
+   >
    > |   . e .          == +   |
+   >
    > |o- = ...          o *   |
+   >
    > | .+X. . .             +   |
+   >
    > |..+ ...o+                 |
+   >
    > +----[SHA256]-----+
+   >
+   > 
 
    
 
@@ -105,6 +118,17 @@ For Windows:
    (Easy for you to identify later on as you work on more devices later on)
 
    
+
+   
+
+   ###### Note if this is your first git set up:
+
+   You will be prompted to set up your account's default identity
+
+   ```
+   git config --global user.email "yourEmailName@yourEmail.com"
+   git config --global user.name "yourName"
+   ```
 
    
 
