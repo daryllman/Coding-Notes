@@ -111,9 +111,9 @@ name must start with a *letter* or *underscore*
 
 
 
-##### Implicit-declaration 
+#### Implicit-declaration 
 
-Auto-declaration by compiler  (
+Auto-declaration by compiler 
 
 **var** keyword
 
@@ -121,7 +121,7 @@ Auto-declaration by compiler  (
 var num = 15;
 ```
 
-##### Constants
+#### Constants
 
 Cannot be changed from initial assignment
 
@@ -148,7 +148,7 @@ PI = 8; //error
 
 ## Arithmetic Operations
 
-##### Pre-fix & Post-fix operations
+#### Pre-fix & Post-fix operations
 
 Prefix example
 
@@ -172,7 +172,7 @@ int y = x++;
 
 ## Conditionals & Loops
 
-##### If-Else Loop
+#### If-Else Loop
 
 ```
 static void Main(string[] args)
@@ -195,7 +195,7 @@ static void Main(string[] args)
 }
 ```
 
-##### Switch statement
+#### Switch statement
 
 ```
 int num = 3;
@@ -219,7 +219,7 @@ switch (num)
 
 Note: Must have break statements. C# compilers will not compile code without break
 
-##### For Loop
+#### For Loop
 
 ```
 for (int x = 10; x < 15; x++)
@@ -268,7 +268,7 @@ for ( ; x > 0 ; )
 }
 ```
 
-##### Do-while Loop
+#### Do-while Loop
 
 Guaranteed to execute at least once
 
@@ -288,7 +288,7 @@ do {
 */
 ```
 
-##### Break vs Continue
+#### Break vs Continue
 
 When the **break** statement is encountered inside a loop, the loop is immediately terminated and the program execution moves on to the next statement following the loop body. ie. it breaks out of its current loop
 
@@ -334,7 +334,7 @@ for (int i = 0; i < 10; i++) {
 */
 ```
 
-##### ? : Operator
+#### ? : Operator *
 
 (Condition) ? Ans1: Ans2 <br/>
 
@@ -353,7 +353,27 @@ Console.WriteLine(msg);
 
 
 
-## Methods
+## Method
 
-asdasdas
+#### Title 1
+
+```
+ssdsadasd
+```
+
+<br/>
+
+
+
+## Sample
+
+#### Title 1
+
+```
+ssdsadasd
+```
+
+<br/>
+
+
 
