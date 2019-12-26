@@ -4,6 +4,8 @@
 
 ****
 
+<br/>
+
 For Windows:
 
 1. ##### Open up Git Bash
@@ -62,7 +64,7 @@ For Windows:
    >
    > 
 
-   
+   <br/>
 
    ###### Letting our computer know that we want to use this SSH Key that we generated above:  
 
@@ -88,6 +90,9 @@ For Windows:
    ###### Enter the passphrase you have chosen earlier on
 
    > Identity added: /c/Users/UserMe/.ssh/id_rsa (yourEmailName@yourEmail.com)  
+   >
+   
+<br/>
 
    ###### Copy the Public SSH Key
 
@@ -101,7 +106,7 @@ For Windows:
 
    (this will copy the public ssh key in your clipboard)  
 
-   
+   <br/>
 
 3. ##### Go to Github to save this SSH Key
 
@@ -117,23 +122,33 @@ For Windows:
 
    (Easy for you to identify later on as you work on more devices later on)
 
+   <br/>
+
+   <br/>
+
+   ### VOILA YOUR ARE DONE
+
+   <br/>
+
+   <br/>
    
-
+   <br/>
    
-
-   ###### Note if this is your first git set up:
-
-   You will be prompted to set up your account's default identity
-
+<br/>
+   
+###### Note if this is your first git set up:
+   
+You will be prompted to set up your account's default identity
+   
    ```
    git config --global user.email "yourEmailName@yourEmail.com"
    git config --global user.name "yourName"
    ```
-
    
-
-   ### VOILA YOUR ARE DONE
-
+   <br/>
+   
+   <br/>
+   
    
 
 
