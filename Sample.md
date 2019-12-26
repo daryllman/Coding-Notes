@@ -144,5 +144,6 @@ B --> D{Rhombus}
 C --> D
 ```
 
-[^Credits]: Taken from StackEdit
+[^]: 
+[^]: Taken from StackEdit
 
