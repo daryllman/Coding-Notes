@@ -64,7 +64,7 @@ For Windows:
 
    
 
-   ###### Letting our computer know that we want to use this SSH Key that we generated above:
+   ###### Letting our computer know that we want to use this SSH Key that we generated above:  
 
    ###### To Start the SSH Agent
 
@@ -73,6 +73,8 @@ For Windows:
    ```
 
    > *Agent pid 669 (or anything else)*
+   >
+   >   
 
    ###### Adding this SSH Key
 
@@ -85,8 +87,7 @@ For Windows:
 
    ###### Enter the passphrase you have chosen earlier on
 
-   > Identity added: /c/Users/UserMe/.ssh/id_rsa (yourEmailName@yourEmail.com)
-   >
+   > Identity added: /c/Users/UserMe/.ssh/id_rsa (yourEmailName@yourEmail.com)  
 
    ###### Copy the Public SSH Key
 
@@ -98,10 +99,9 @@ For Windows:
    clip < ~/.ssh/id_rsa.pub
    ```
 
-   (this will copy the public ssh key in your clipboard)
+   (this will copy the public ssh key in your clipboard)  
 
-
-
+   
 
 3. ##### Go to Github to save this SSH Key
 
