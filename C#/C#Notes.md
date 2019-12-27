@@ -5,10 +5,11 @@ Here are my simplified notes for C#.
 ## Table of Contents
 
 1. Introduction
-2. Variables
-3. sdsd
-4. sdsd
-5. sds
+2. Printing
+3. Variables
+4. Arithmetic Operations
+5. Methods
+6. ....
 
 <br>
 
@@ -353,7 +354,7 @@ Console.WriteLine(msg);
 
 
 
-## Method
+## Methods
 
 Note: Every C# program must have at least one method - the **Main** method.  
 
@@ -547,6 +548,16 @@ static void Main(string[] args) {
 ```
 
 
+
+<br/>
+
+## Classes & Objects
+
+#### Title 1
+
+```
+ssdsadasd
+```
 
 <br/>
 
