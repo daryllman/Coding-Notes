@@ -355,11 +355,198 @@ Console.WriteLine(msg);
 
 ## Method
 
-#### Title 1
+Note: Every C# program must have at least one method - the **Main** method.  
+
+Every method declaration includes:  
+
+- return type
+
+- method name
+
+- list of parameters (if any)
 
 ```
-ssdsadasd
+example:
+
+static void SayHi()
+{
+  Console.WriteLine("Hello");
+}
+
+static void Main(string[] args)
+{
+  SayHi();
+}
+//Outputs "Hello"
 ```
+
+#### With Parameters
+
+##### Single parameter
+
+```
+static void Func(int x)
+{
+  Console.WriteLine(x*2);
+}
+static void Main(string[] args)
+{
+  Func(5);
+  //Outputs 10
+  
+  Func(12);
+  //Outputs 24
+
+  Func(42);
+  //Outputs 84
+}
+```
+##### Multiple Parameters
+
+```
+static int Sum(int x, int y)
+{
+   return x+y;
+}
+
+static void Main(string[] args)
+{
+  Console.WriteLine(Sum(8, 6));
+  // Outputs 14
+}
+```
+
+##### Optional Arguments
+
+You can also specify a **default value** for optional parameters.
+
+```
+static int Pow(int x, int y=2)
+{
+  int result = 1;
+  for (int i = 0; i < y; i++)
+  {
+    result *= x;
+  }
+ 
+  return result;
+}
+//_____________________________
+static void Main(string[] args)
+{
+  Console.WriteLine(Pow(6));
+  //Outputs 36
+
+  Console.WriteLine(Pow(3, 4));
+  //Outputs 81
+}
+```
+
+##### Named Arguments
+
+If you want to be very clear about which argument/parameter you are assigning values to, you can name the arguments in the method. So you don't have to remember the order.
+
+```
+static void Main(string[] args)
+{
+  int res = Area(w: 5, h: 8);
+  Console.WriteLine(res);
+  //Outputs 40
+}
+```
+
+<br/>
+
+#### Passing Arguments
+
+##### Passing by Arguments
+
+(what we usually use)
+
+```
+static void Sqr(int x)
+{
+  x = x * x;
+}
+static void Main()
+{
+  int a = 3;
+  Sqr(a);
+
+  Console.WriteLine(a); // Outputs 3
+}
+```
+
+##### Passing by Reference
+
+Pass by **reference** copies an argument's memory address into the formal parameter. Inside the method, the address is used to access the actual argument used in the call.     
+
+This means that changes made to the parameter affect the argument.    
+
+To pass the value by reference, the **ref** keyword is used in both the call and the method definition:  
+
+```
+static void Sqr(ref int x)
+{
+  x = x * x;
+}
+static void Main()
+{
+  int a = 3;
+  Sqr(ref a);
+
+  Console.WriteLine(a); // Outputs 9
+}
+```
+
+> Note that variable that is input into method is updated as well.
+
+##### Passing by Output
+
+**Output** parameters are similar to reference parameters, BUT they **transfer data out** of the method rather than accept data in. They are defined using the **out** keyword.   
+The variable supplied for the output parameter need not be initialized since that value will not be used.    
+
+Output parameters are useful if you need to return multiple values from a method.
+
+```
+static void GetValues(out int x, out int y)
+{
+  x = 5;
+  y = 42;
+}
+static void Main(string[] args)
+{
+  int a, b;
+  GetValues(out a, out b);
+  //Now a equals 5, b equals 42
+}
+```
+
+<br/>
+
+#### Method Overloading
+
+When you are specifying different cases with different parameters, that will be handled differently depending on the arguments passed to the methods.
+
+```
+static void Print(int a) {
+  Console.WriteLine("Value: " + a);
+}
+static void Print(double a) {
+  Console.WriteLine("Value: " + a);
+}
+static void Print(string label, double a) {
+  Console.WriteLine(label + a);
+}
+// _________________________________
+static void Main(string[] args) {
+  Print(11);
+  Print(4.13);
+  Print("Average: ", 7.57);
+}
+```
+
+
 
 <br/>
 
