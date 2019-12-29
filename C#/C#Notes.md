@@ -553,6 +553,448 @@ static void Main(string[] args) {
 
 ## Classes & Objects
 
+#### Value & Reference Types
+
+##### Value types
+
+Built-in data types eg int and double used to declare variables are stored in a memory location called **Stack**   
+
+eg int x = 10    
+
+##### Reference types
+
+**Reference** types are used to store objects. Eg. if you instantiate an object of a class, it is stored as a reference type, and these Reference types are stored in a memory location called the **Heap**. 
+
+ie. the memory location of objects are stored in the stack, which points to a location in the heap.      
+
+**Stack** is used for *static memory allocation*, which includes all your value types, like x.
+**Heap** is used for *dynamic memory allocation*, which includes custom objects, that might need additional memory during the runtime of your program.
+
+#### Class
+
+an example of a class:
+
+```
+class Person {
+  int age;
+  string name;
+  public void SayHi() {
+    Console.WriteLine("Hi");
+  }
+}
+//______________________________
+
+static void Main(string[] args)
+{
+  Person p1 = new Person();
+  p1.SayHi();
+}
+//Outputs "Hi"
+```
+
+
+
+#### Encapsulation
+
+Encapsulation is achieved using **access modifiers**: *public, protected, default, private*     
+
+The access modifiers define the scope and visibility of the class members.   
+
+| Modifier           | Containing Classes | Derived Classes | Containing Assembly | Anywhere outside containing assembly |
+| ------------------ | ------------------ | --------------- | ------------------- | ------------------------------------ |
+| public             | Y                  | Y               | Y                   | Y                                    |
+| protected internal | Y                  | Y               | Y                   | N                                    |
+| protected          | Y                  | Y               | N                   | N                                    |
+| private            | Y                  | N               | N                   | N                                    |
+| internal           | Y                  | N               | Y                   | N                                    |
+
+
+
+#### Constructors
+
+A Constructor is public, does not have a return type and is automatically called
+
+```
+class Person
+{
+  private int age;
+  public Person()
+  {
+    Console.WriteLine("Hi there");
+  }
+}
+//_____________________________
+
+static void Main(string[] args)
+{
+  Person p = new Person();
+}
+// Outputs "Hi there"
+```
+
+```
+class Person
+{
+  private int age;
+  private string name;
+  public Person(string nm)
+  {
+    name = nm;
+  }
+  public string getName()
+  {
+    return name;
+  }
+}
+//____________________________
+
+static void Main(string[] args)
+ {
+  Person p = new Person("David");
+  Console.WriteLine(p.getName());
+}
+//Outputs "David"
+```
+
+
+
+#### Properties
+
+Good practice to make properties of a member **private**    
+
+A **property** is a member that provides a flexible mechanism to read, write, or compute the value of a private field. Properties can be used as if they are public data members, but they actually include special methods called **accessors**.    
+
+And provide special methods called **accessors**:     
+
+**get** accessor & **set** accessor
+
+```
+class Person
+{
+  private string name; //field
+
+  public string Name //property
+  {
+    get { return name; }
+    set { name = value; }
+  }
+}
+```
+
+> Note that **value** is a special keyword that represents the value that is assigned to the property using the set accessor.      
+>
+> By coding conventions/ norm, properties have same name as the private field but with first Capital letter.  eg 'Name' property for 'name' private field
+
+###### Can also omit any accessor. eg below property is read-only.
+
+```
+class Person
+{
+  private string name;
+  public string Name
+  {
+    get { return name; }
+  }
+}
+```
+
+###### Properties allow flexibility to control logic of accessing variable
+
+```
+// eg. Checking & ensuring that the value of age is greater than 0.
+class Person
+{
+  private int age=0;
+  public int Age
+  {
+    get { return age; }
+    set {
+      if (value > 0)
+        age = value;
+    }
+  }
+}
+```
+
+##### Auto-Implemented Properties
+
+If you do not need a custom logic to access variable, use the following syntax to create a private member.
+
+```
+public string Name { get; set; }
+```
+
+You do not need to declare the private field name separately as it will be auto-created by the property automatically.     
+
+This allows easy and short declaration of private members
+
+```
+class Person
+{
+  public string Name { get; set; }
+}
+//___________________________________
+
+static void Main(string[] args)
+{
+  Person p = new Person();
+  p.Name = "Bob";
+  Console.WriteLine(p.Name);
+}
+// Outputs "Bob"
+```
+
+
+
+##### Reading/ Writing
+
+```
+class Person
+{
+  private string name;
+  public string Name
+  {
+    get { return name; }
+    set { name = value; }
+  }
+}
+static void Main(string[] args)
+{
+  Person p = new Person();
+  p.Name = "Bob";
+  Console.WriteLine(p.Name);
+}
+```
+
+
+
+<br/>
+
+
+
+## Arrays
+
+###### Creating arrays
+
+```
+int[ ] myArray;
+```
+
+```
+int[ ] myArray = new int[5]; 
+```
+
+After creating array, you can assign values to individual elements in array
+
+```
+int[ ] myArray = new int[5];
+myArray[0] = 23;
+```
+
+You can also create arrays with initial values set already
+
+```
+string[ ] names = new string[3] {"John", "Mary", "Jessica"};
+double[ ] prices = new double[4] {3.6, 9.8, 6.4, 5.9};
+```
+```
+// Without size declaration. 
+// Will be determined by the initial array given.
+
+string[ ] names = new string[ ] {"John", "Mary", "Jessica"};
+double[ ] prices = new double[ ] {3.6, 9.8, 6.4, 5.9};
+```
+
+```
+// Can omit new operator too.
+string[ ] names = {"John", "Mary", "Jessica"};
+double[ ] prices = {3.6, 9.8, 6.4, 5.9};
+```
+
+> note: arrays are stored in curly brackets. If you need to re-assign array, use curly brackets.
+
+<br/>
+
+##### Using Loops for Arrays
+
+###### for loop
+
+```
+int[ ] a = new int[10];
+for (int k = 0; k < 10; k++) {
+  a[k] = k*2;
+}
+```
+
+```
+for (int k = 0; k < 10; k++) {
+  Console.WriteLine(a[k]);
+}
+```
+
+###### foreach loop
+
+```
+foreach (int k in a) {
+  Console.WriteLine(k);
+}
+```
+
+<br/>
+
+##### Multidimensional Arrays
+
+```
+type[, , … ,] arrayName = new type[size1, size2, …, sizeN];
+```
+
+eg. for 3x4 integer array:
+
+```
+int[ , ] x = new int[3,4];
+```
+
+###### Initialising multidimensional arrays
+
+```
+int[ , ] someNums = { {2, 3}, {5, 6}, {4, 6} }; 
+```
+
+###### Looping multidimensional arrays
+
+```
+for (int k = 0; k < 3; k++) {
+  for (int j = 0; j < 2; j++) {
+    Console.Write(someNums[k, j]+" ");
+  }
+  Console.WriteLine();
+}
+```
+
+<br/>
+
+##### Jagged Arrays
+
+A **jagged** array is an array whose elements are arrays. i.e. array of arrays.     
+
+eg. single-dimensional array that has 3 elements (that are single-dimensional array of integers)
+
+```
+int[ ][ ] jaggedArr = new int[3][ ];
+```
+Initialising array upon declaration
+```
+int[ ][ ] jaggedArr = new int[ ][ ] 
+{
+  new int[ ] {1,8,2,7,9},
+  new int[ ] {2,4,6},
+  new int[ ] {33,42}
+};
+```
+
+Accessing individual array elements
+
+```
+int x = jaggedArr[2][1]; //42
+```
+
+<br/>
+
+##### Array Properties & Methods
+
+###### Length: number of elements
+
+###### Rank: number of dimensions of the array
+
+```
+int[ ] arr = {2, 4, 7};
+Console.WriteLine(arr.Length); 
+//Outputs 3
+
+Console.WriteLine(arr.Rank); 
+//Outputs 1
+```
+
+Use case in loops
+
+```
+int[ ] arr = {2, 4, 7};
+for(int k=0; k<arr.Length; k++) {
+  Console.WriteLine(arr[k]);
+}
+```
+
+###### Max(), Min(), Sum() methods
+
+**Max** returns the largest value.  
+**Min** returns the smallest value.  
+**Sum** returns the sum of all elements.
+
+```
+int[ ] arr = { 2, 4, 7, 1};
+Console.WriteLine(arr.Max());
+//Outputs 7
+
+Console.WriteLine(arr.Min());
+//Outputs 1
+
+Console.WriteLine(arr.Sum());
+//Outputs 14
+```
+
+
+
+<br/>
+
+
+
+## Strings
+
+Strings can be thought of as arrays of characters.    
+
+**Length** returns the length of the string.    
+**IndexOf(value)** returns the index of the first occurrence of the value within the string.    
+**Insert(index, value)** inserts the value into the string starting from the specified index.    
+**Remove(index)** removes all characters in the string after the specified index.    
+**Replace(oldValue, newValue)** replaces the specified value in the string.   
+**Substring(index, length)** returns a substring of the specified length, starting from the specified index. If length is not specified, the operation continues to the end of the string.  
+**Contains(value)** returns true if the string contains the specified value.
+
+```
+string a = "some text";
+Console.WriteLine(a.Length);
+//Outputs 9
+
+Console.WriteLine(a.IndexOf('t'));
+//Outputs 5
+
+ a = a.Insert(0, "This is ");
+Console.WriteLine(a);
+//Outputs "This is some text"
+
+a = a.Replace("This is", "I am");
+Console.WriteLine(a);
+//Outputs "I am some text"
+
+if(a.Contains("some"))
+  Console.WriteLine("found");
+//Outputs "found"
+
+a = a.Remove(4);
+Console.WriteLine(a);
+//Outputs "I am"
+
+a = a.Substring(2);
+Console.WriteLine(a);
+//Outputs "am"
+
+string a = "some text";
+Console.WriteLine(a[2]);
+//Outputs "m"
+```
+
+
+
 #### Title 1
 
 ```
@@ -573,5 +1015,7 @@ ssdsadasd
 
 <br/>
 
+****
 
+###### Acknowledgements: SoloLearn, StackOverflow
 
