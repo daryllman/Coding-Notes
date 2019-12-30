@@ -27,6 +27,7 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    4. Icons Widget
    5. Card Widget
    6. Divider Widget
+   7. URL Launcher
 4. **Other Cool Open-Source Flutter Apps**
 5. ....
 
@@ -978,6 +979,151 @@ SizedBox(
                   thickness: 1.0,
                 ),
               ),
+```
+
+## URL Launcher
+
+[URL Launcher](https://pub.dev/packages/url_launcher) is a dependency that helps to open URL
+
+https://alligator.io/flutter/url-launcher/
+
+### Open URL
+
+#### Add Dependency in pubspec.yaml
+
+```
+dependencies:
+  flutter:
+    sdk: flutter
+  url_launcher: ^5.2.5
+```
+
+#### Add function
+
+**Use onTap/onPressed**      
+
+(depending on which widget is used)
+
+```
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+void main() {
+  runApp(Scaffold(
+    body: Center(
+      child: RaisedButton(
+        onPressed: _launchURL,
+        child: Text('Show Flutter homepage'),
+      ),
+    ),
+  ));
+}
+
+_launchURL() async {
+  const url = 'https://flutter.dev';
+  if (await canLaunch(url)) {
+    await launch(url);
+  } else {
+    throw 'Could not launch $url';
+  }
+}
+```
+
+Or directly add function into widget: eg.       
+
+##### Force to open with specific browser
+
+```
+ListTile(
+  title: Text("Launch Web Page"),
+  onTap: () async {
+    const url = 'https://google.com';
+
+    if (await canLaunch(url)) {
+      await launch(url, forceSafariVC: false);
+    } else {
+      throw 'Could not launch $url';
+    }
+  },
+),
+```
+
+##### Open with in-app browser (WebView)
+
+```
+const url = 'https://google.com';
+
+if (await canLaunch(url)) {
+  await launch(url, forceWebView: true);
+} else {
+  throw 'Could not launch $url';
+}
+```
+
+### Open Google Maps
+
+#### Save Coordinates
+
+```
+class HomePage extends StatelessWidget {
+  final String lat = "37.3230";
+  final String lng = "-122.0312";
+
+  // ...
+}
+```
+
+#### Add function
+
+```
+ListTile(
+  title: Text("Launch Maps"),
+  onTap: () async {
+    final String googleMapsUrl = "comgooglemaps://?center=$lat,$lng";
+    final String appleMapsUrl = "https://maps.apple.com/?q=$lat,$lng";
+
+    if (await canLaunch(googleMapsUrl)) {
+      await launch(googleMapsUrl);
+    }
+    if (await canLaunch(appleMapsUrl)) {
+      await launch(appleMapsUrl, forceSafariVC: false);
+    } else {
+      throw "Couldn't launch URL";
+    }
+  },
+),
+```
+
+### Open Telephone
+
+#### Save Number
+
+```
+class HomePage extends StatelessWidget {
+  final String lat = "37.3230";
+  final String lng = "-122.0312";
+
+  final String telephoneNumber = "01817658822";
+
+  // ...
+}
+```
+
+#### Add Function
+
+```
+ListTile(
+  title: Text("Telephone"),
+  onTap: () async {
+    String telephoneUrl = "tel:$telephoneNumber";
+
+    if (await canLaunch(telephoneUrl)) {
+      await launch(telephoneUrl);
+    } else {
+      throw "Can't phone that number.";
+    }
+  },
+),
 ```
 
 
