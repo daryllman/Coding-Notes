@@ -10,7 +10,7 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    1. Why Flutter
    2. The Anatomy of a Flutter App
    3. Setup & Installation
-2. **Section 2: Creating an App - first steps**
+2. **Section 2: Creating an App - First Steps**
    1. MaterialApp Class
    2. Formatting Code
    3. Hot Reload Feature
@@ -18,10 +18,17 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    5. Planning the Structure of a Flutter App
    6. Adding Custom App Icons
    7. Testing your Flutter App
-3. **Variables**
-4. **Arithmetic Operations**
-5. Methods
-6. ....
+   8. External Resources to Use in App
+   9. Dart SDK
+3. **Section 3: Using Flutter Layout UI**
+   1. Container Widget
+   2. Column & Row Widgets
+   3. Adding Custom Fonts
+   4. Icons Widget
+   5. Card Widget
+   6. Divider Widget
+4. **Other Cool Open-Source Flutter Apps**
+5. ....
 
 <br>
 
@@ -163,7 +170,7 @@ Can try using **Codemagic** to "Build, test and deliver your Flutter apps in rec
 
 
 
-# Section 2: Creating an App - first steps
+# Section 2: Creating an App - First Steps
 
 ## MaterialApp Class
 
@@ -263,6 +270,8 @@ Allows almost instant changes to UI to be seen (but there are caveats for this u
 #### Changes must be inside a Flutter Stateless or Stateful widget
 
 We can create our own **StatelessWidget** by using the boilerplate code for building a stateless widget       
+
+Shortcut: type *stless* and select shortcut
 
 ```
 class MyApp extends StatelessWidget {
@@ -491,6 +500,10 @@ This tells our flutter app about this particular asset - after which we can use 
 
 <br/>
 
+**CTRL + Q** on widget to see **QUICK DOCS** on more info about the widget
+
+<br/>
+
 ## Planning the Structure of a Flutter App
 
 There are many tools that can be used to plan the structure of any app, not just flutter app. It is essentially like a diagram or a flowchart to see the hierarchy of widgets for flutter app.     
@@ -581,7 +594,7 @@ Load app into your phone!
 
 
 
-## External Resources to incorporate in App
+## External Resources to Use in App
 
 - www.icons8.com
 
@@ -597,9 +610,411 @@ Load app into your phone!
 
 
 
+## Dart SDK
+
+### Selecting Dart SDK Path
+
+Sometimes, the Dart SDK path may not be specified if you clone from other projects.     
+
+You have to manually specify from the folder you have saved the flutter folder in.
+
+```
+C:\src\flutter\flutter\bin\cache\dart-sdk
+```
+
+For new projects, packages may not have been installed/set up properly.
+
+*Get dependencies* to automatically install the required dependencies to run the project
+
+<br/> 
+
+# Section 3: Using Flutter Layout UI
+
+Go to [Flutter Layout Widgets](https://flutter.dev/docs/development/ui/widgets/layout) to read up on documentation on any new layout widget you come across before using them.    
+
+Good summary [Flutter Layout Cheatsheet](https://medium.com/flutter-community/flutter-layout-cheat-sheet-5363348d037e)
+
+## Container Widget
+
+Essentially a layout box - similar to the term 'div' in web dev.
+
+> Note:       
+>
+> Containers with no children try to be as big as possible unless the incoming constraints are unbounded        
+>
+> Containers with children size themselves to their children - something **different **      
+>
+> The width, height and constraints arguments to the constructor override this.
+
+### SafeArea Widget
+
+If we do not wrap our main body content inside a SafeArea widget, contents may spill over to the top bar where our android icons are (time, battery status etc.) as well as the bottom especially for iPhones.     
+
+We can  Alt + Enter and **Wrap with Widget** to the container.     
+
+Afterwards, change the name of the widget to use the '**SafeArea**' widget
+
+### Setting Size 
+
+- height
+
+- width
+
+- margin       
+
+  ```
+  margin: EdgeInsets.all(10.0),
+  ```
+
+  ```
+  margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 30.0),
+  ```
+  ```
+  margin: EdgeInsets.fromLTRB(10.0, 20.0, 30.0, 5.0),
+  ```
+   ```
+  margin: EdgeInsets.only(left: 10.0),
+   ```
+  
+- padding       
+
+  Same as margin above
+
+  ```
+  padding: padding: EdgeInsets.all(20.0),
+  ```
+
+Check sizing with Flutter inspector > Margin Inspector       
+
+Summary:
+
+```
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        backgroundColor: Colors.blue,
+        body: SafeArea(
+          child: Container(
+            height: 100.0,
+            width: 100.0,
+            margin: EdgeInsets.only(left: 10.0),
+            padding: EdgeInsets.all(20.0),
+            color: Colors.white,
+            child: Text('Hello'),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+```
 
 
-## Title 1
+
+<br/>
+
+Note layout widgets like Container are **Single-child**, meaning they can only contain 1 specified child. If there is a need for more, we need to use *Column or Row widgets*(see below)
+
+<br/>
+
+## Column & Row Widgets
+
+Column and Row widgets are **Multi-child** layout widgets
+
+### Column Widget
+
+Add the children widgets under children
+
+```
+Column(
+          children: <Widget>[    
+          
+          ] 
+)
+```
+
+##### MainAxisSize
+
+Change it to vary the size of the column
+
+```
+Column(
+	mainAxisSize: MainAxisSize.min,
+	children:....
+)
+```
+
+If not default is the maximum size possible from top to bottom of phone.
+
+##### VerticalDirection
+
+Default: 
+
+```
+verticalDirection: VerticalDirection.down
+```
+Opposite direction:
+```
+verticalDirection: VerticalDirection.down
+```
+
+##### MainAxisAlignment
+
+Default:
+
+```
+mainAxisAlignment:MainAxisAlignment.start
+```
+Aligned to the bottom:
+```
+mainAxisAlignment:MainAxisAlignment.end
+```
+Aligned with center:
+```
+mainAxisAlignment:MainAxisAlignment.end
+```
+Spaced evenly:
+```
+mainAxisAlignment:MainAxisAlignment.spaceEvenly
+```
+Space between (one top, one bottom, the rest spaced out):
+```
+mainAxisAlignment:MainAxisAlignment.spaceBetween
+```
+Cross Axis Alignment - End - children aligned towards the right horizontally (with respect to the largest child)
+```
+mainAxisAlignment:CrossAxisAlignment.end
+```
+Cross Axis Alignment - Stretch - Stretch all children across the screen - no need to manually adjust width to double.infinity for all children
+```
+mainAxisAlignment:CrossAxisAlignment.stretch
+```
+
+##### Sized Box
+
+An empty div box that provides some spacing
+
+```
+SizedBox(
+height: 20.0,
+),
+```
+
+### Row Widget
+
+Works the same as a Column Widget, but in the other direction - children arranged from left to right
+
+## Adding Custom Fonts
+
+### Use Google Fonts
+
+- Go to https://fonts.google.com/ - free for commercial use
+- Download the font that you want
+
+- Create new folder called 'fonts'
+
+- Update on pubspec:
+
+  ```
+   fonts:
+    - family: Pacifico
+      fonts:
+         - asset: fonts/Pacifico-Regular.ttf
+    - family: Source Sans Pro
+      fonts:
+         - asset: fonts/SourceSansPro-Regular.ttf
+  ```
+
+Use font under Text:
+
+```
+Text('Software Engineer',
+              style: TextStyle(
+                fontFamily: 'Source Sans Pro',
+                color: Colors.blueGrey.shade200,
+                fontSize: 20.0,
+                letterSpacing: 2.5,
+                fontWeight: FontWeight.w400,
+
+              ),)
+```
+
+## Icons Widget
+
+Icons are one of the most frequently used widget - buttons, boxes, etc.        
+
+ We can find most of the Icons that we want at [Material Design Icons](https://material.io/resources/icons/?style=baseline)     
+
+Useful Tool for Material Design: [Material Design Palette](https://www.materialpalette.com/)      
+
+Find the Icon that you want on Material Icons, note the name and add into code
+
+```
+Container(
+                child: Row(
+                  children: <Widget>[
+                    Icon(Icons.add_shopping_cart),
+                  ],
+                ),
+              ),
+```
+
+Icons are better than Vectors as their properties are more flexible. Eg. you can change color, size, etc without decrease in quality
+
+## Card Widget
+
+This is a useful widget for many purposes - it is a better Container Widget, that makes it look way better      
+
+For all the properties of a Card Widget: https://api.flutter.dev/flutter/material/Card-class.html
+
+#### Properties
+
+- shape
+- elevation
+- borderOnForeground
+- color
+- ....
+
+> Note Card Widget does not have a padding property     
+>
+> Solution: Use **Padding Widget** as a child to the Card Widget
+
+#### Padding Widget (used as child of Card Widget)
+
+```
+Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: Padding(
+                  padding: EdgeInsets.all(25.0),
+                  child: Row(
+                    children: <Widget>[
+                      Icon(
+                        Icons.phone,
+                        color: Colors.grey[700],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+```
+
+#### ListTile Widget (used as child of Card Widget)
+
+https://api.flutter.dev/flutter/material/ListTile-class.html       
+
+When you want to add these in a Card:      
+
+- Icons
+- Text
+
+> "A single fixed-height row that typically contains some text as well as a a leading or training icon"
+
+Properties of ListTile:
+
+- leading
+
+- title
+
+- subtitle
+
+- onTap
+
+- trailing
+
+- ....etc
+
+  Using it in a card:
+
+```
+Card(
+                color: Colors.white,
+                margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                child: ListTile(
+                  leading: Icon(
+                    Icons.email,
+                    color: Colors.grey[700],
+                  ),
+                  title:Text(
+                    'daryll_wong@hotmail.com',
+                    style: TextStyle(
+                      color: Colors.blueGrey[900],
+                      fontFamily: 'Source Sans Pro',
+                      fontSize: 20.0,
+                    ),
+                  ),
+                )
+              ),
+```
+
+## Divider Widget
+
+[Divider Widget](https://api.flutter.dev/flutter/material/Divider-class.html) is simply a useful divider line.     
+
+Mainly used for Aesthetics
+
+#### Properties
+
+- thickness
+- color
+- height
+- width
+
+```
+SizedBox(
+                height: 20.0,
+                width: 150.0,
+                child: Divider(
+                  color: Colors.white,
+                  thickness: 1.0,
+                ),
+              ),
+```
+
+
+
+<br/>
+
+
+
+## Other Cool Open-Source Flutter Apps
+
+Cool Apps that other developers have created.
+
+#### History of Everything
+
+###### Links:       
+
+-  https://github.com/2d-inc/HistoryOfEverything   
+- https://medium.com/rive/the-history-of-everything-981d989e1b45?        
+
+App used in live Flutter Demo to show the various features of Flutter App and what it can do     
+
+Stunning Animations        
+
+###### Tools used:
+
+- Flutter's [ScrollPhysics](https://api.flutter.dev/flutter/widgets/ScrollPhysics-class.html) & [GestureDectector](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html) Classes - to make scrolling feel native on iOS and Android
+- Design tool: [Flare](https://medium.com/rive/flare-launch-d524067d34d8?) - vector design and animation tool - to allow designers to work directly with assets that run in their final app or game (fuly GPU accelerated in real-time)
+
+
+
+<br/>
+
+
+
+# Sample Section
+
+### Title 1
 
 ```
 ssdsadasd
