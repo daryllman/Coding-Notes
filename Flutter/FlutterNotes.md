@@ -581,6 +581,20 @@ Load app into your phone!
 
 
 
+## External Resources to incorporate in App
+
+- www.icons8.com
+
+  Beautiful Illustrations and Icons by artists
+
+- www.vecteezy.com
+
+  larger list of icons
+
+- www.canva.com
+
+  > Remember to credit the artworks from artists
+
 
 
 
