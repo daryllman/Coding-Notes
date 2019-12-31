@@ -27,9 +27,13 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    4. Icons Widget
    5. Card Widget
    6. Divider Widget
-   7. URL Launcher
-4. **Other Cool Open-Source Flutter Apps**
-5. ....
+   7. Expanded Widget
+   8. URL Launcher
+   9. Layout Tips
+4. **Section 4: Handling States & Functions**
+5. **Dart Language**
+6. **Other Cool Open-Source Flutter Apps**
+7. ....
 
 <br>
 
@@ -981,6 +985,63 @@ SizedBox(
               ),
 ```
 
+## Expanded Widget
+
+### Problem:
+
+**Overflowing** of images, widges etc
+
+### What does it do:
+
+The [Expanded Widget](https://api.flutter.dev/flutter/widgets/Expanded-class.html) "expands a child of a [Row](https://api.flutter.dev/flutter/widgets/Row-class.html), [Column](https://api.flutter.dev/flutter/widgets/Column-class.html), or [Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html) so that the child fills the available space."      
+
+Using an [Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html) widget makes a child of a [Row](https://api.flutter.dev/flutter/widgets/Row-class.html), [Column](https://api.flutter.dev/flutter/widgets/Column-class.html), or [Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html) expand to fill the available space along the main axis (e.g., horizontally for a [Row](https://api.flutter.dev/flutter/widgets/Row-class.html) or vertically for a [Column](https://api.flutter.dev/flutter/widgets/Column-class.html)). If multiple children are expanded, the available space is divided among them according to the [flex](https://api.flutter.dev/flutter/widgets/Flexible/flex.html) factor.      
+
+An [Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html) widget must be a descendant of a [Row](https://api.flutter.dev/flutter/widgets/Row-class.html), [Column](https://api.flutter.dev/flutter/widgets/Column-class.html), or [Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html), and the path from the [Expanded](https://api.flutter.dev/flutter/widgets/Expanded-class.html) widget to its enclosing [Row](https://api.flutter.dev/flutter/widgets/Row-class.html), [Column](https://api.flutter.dev/flutter/widgets/Column-class.html), or [Flex](https://api.flutter.dev/flutter/widgets/Flex-class.html) must contain only [StatelessWidget](https://api.flutter.dev/flutter/widgets/StatelessWidget-class.html)s or [StatefulWidget](https://api.flutter.dev/flutter/widgets/StatefulWidget-class.html)s (not other kinds of widgets, like [RenderObjectWidget](https://api.flutter.dev/flutter/widgets/RenderObjectWidget-class.html)s).      
+
+```
+Expanded(
+          child: Image(
+            image: AssetImage('images/dice1.png'),
+          ),
+```
+
+### Properties:
+
+- child
+
+- flex (how many 'size' it takes up ie. ratio)
+
+  ```
+  Row(
+        children: <Widget>[
+          Expanded(
+            flex: 2,
+            child: Image(
+              image: AssetImage('images/dice1.png'),
+            ),
+          ),
+          Expanded(
+            child: Image(
+              image: AssetImage('images/dice1.png'),
+            ),
+          ),
+        ],
+      );
+  ```
+
+  
+
+- fit
+
+- key
+
+- ...
+
+
+
+
+
 ## URL Launcher
 
 [URL Launcher](https://pub.dev/packages/url_launcher) is a dependency that helps to open URL
@@ -1126,19 +1187,271 @@ ListTile(
 ),
 ```
 
+## Layout Tips
+
+1. ### Using Flutter Outline
+
+   - You can open Flutter Outline to wrap a widget with other widgets easily
+   - Remove wrapping widget, leaving contents
+   - Move position of widget up and down
+   - Add Padding
+
+2. ### Using Alt + Enter
+
+   - Similarly, you can also wrap a widget with other widgets easily in code
+   - Remove wrapping widget, leaving contents
+   - Move position of widget up and down
+   - Add Padding
+
+<br/>
+
+
+
+
+
+
+
+
+
+# Section 4: Handling States & Functions
+
+## Buttons Widgets
+
+### Types of Button Widgets available:
+
+[Types of Button widgets](https://flutter.dev/docs/development/ui/widgets/material) 
+
+- ButtonBar *
+- DropdownButton
+- FlatButton
+- IconButton *
+- FloatingActionButton
+- PopupMenuButton
+- RaisedButton *
+
+### FlatButton Widget (eg)
+
+#### Function
+
+It is a **Zero-elevation Button** (with **text label**) that reacts to touches by filling with color
+
+> Note this widget has default left and right padding    
+>
+> Check for yourself in Flutter Inspector.
+
+```
+FlatButton(
+              child: Image.asset('images/dice1.png'),
+            ),
+```
+
+#### onPressed
+
+Reading documentation, note that it expects **void VoidCallback()** function     
+
+> Signature of callbacks that have **no arguments** and **return no data**
+
+> kind of like an Anonymous function
+
+```
+Expanded(
+            child: FlatButton(
+              onPressed: (){
+                print("Left button pressed.");
+              },
+              child: Image.asset('images/dice1.png'),
+            ),
+          ),
+```
+
+
+
+## Functions
+
+```
+ssdsadasd
+```
+
+
+
+## Variables
+
+Note to save variables inside **build** if not **Hot Reload** will not cause any updates - Hot Reload only updates what is changed inside of build
+
+```
+class DicePage extends StatelessWidget {
+  
+  @override
+  Widget build(BuildContext context) {
+    var leftDiceNum = 1;
+    var rightDiceNum = 1;
+
+	return ....
+	.....
+```
+
+
+
+## Stateful Widget
+
+### Stateful Widget vs Stateless Widget - whats the difference
+
+**Stateless**: State of widget is Immutable, no change. Not meant to have any changes, and stay consistent.     
+
+**Stateful**: State of widget can change. Changes can be seen depending on state.
+
+### Stateful Widget
+
+Shortcut: type "stful"     
+
+Same as Stateless widget, copy all the cut all the code into the Stateless widget.     
+
+Only difference is  the **setState()** method
+
+#### setState() method
+
+```
+FlatButton(
+              onPressed: () {
+                setState(() {
+                  leftDiceNum = 5;
+                });
+              },
+              child: Image.asset('images/dice$leftDiceNum.png'),
+            ),
+```
+
+> If setState() is not called for any changes, the app will not know that it needs to update the UI of the app accordingly.     
+>
+> Therefore whereever the app states will change, must use setState()
+
+#### What happens? 
+
+Inside setState(), the app sees what variable is changed. Afterwards, the app looks at the code and see where else is this variable used and will affect UI changes.
+
+<br/>
+
+
+
+
+
+# Dart Language
+
+[Dart Online IDE](https://dartpad.dartlang.org/)       
+
+Dart is a **Statistically-typed language**
+
+## Print to Console
+
+```
+print('Button pressed');
+```
+
+## Functions
+
+### Anonymous Functions
+
+Code is added directly at where function is implemented
+
+```
+(){
+	print('Hello world')
+}
+```
+
+```
+Expanded(
+            child: FlatButton(
+              onPressed: (){
+                print("Left button pressed.");
+              },
+              child: Image.asset('images/dice1.png'),
+            ),
+          ),
+```
+
+
+
+### Void Callback Functions 
+
+(Anonymous Functions too)
+
+```
+void printSomething(){
+	print('Hello world')
+}
+```
+
+## Data Types & Variables
+
+```
+var leftDiceNumber = 1;
+```
+
+> Note **var** type automatically assigns the first assigned data type to the variable. Any attempts to reassign to another data type would produce error!
+
+### String
+
+Use single-quote ' '
+
+### Dynamic Data Type
+
+Sometimes Dart can behave as an dynamically -typed language (with dynamic data type)        
+
+If variable is assigned with **var** but **without a value**, then it has a **dynamic** data type. No fixed data type is assigned.    
+
+You can also assign directly with **dynamic**
+
+```
+var a;
+a = 'hello';
+a = 123
+//Wont produce an error.
+```
+
+OR
+
+```
+dynamic a;
+a = 'hello';
+a = 123
+```
+
+> Avoid using **var** or **dynamic** for less errors...
+
+
+
+## String Interpolation
+
+Use **$variableName** with the dollar sign to signify variable name.
+
+```
+child: Image.asset('images/dice$leftDiceNum.png'),
+```
+
+```
+void main() {
+  for (int i = 0; i < 5; i++) {
+    print('hello ${i + 1}');
+  }
+}
+```
+
+
+
 
 
 <br/>
 
 
 
-## Other Cool Open-Source Flutter Apps
+# Other Cool Open-Source Flutter Apps
 
 Cool Apps that other developers have created.
 
-#### History of Everything
+### History of Everything
 
-###### Links:       
+##### Links:       
 
 -  https://github.com/2d-inc/HistoryOfEverything   
 - https://medium.com/rive/the-history-of-everything-981d989e1b45?        
@@ -1147,7 +1460,7 @@ App used in live Flutter Demo to show the various features of Flutter App and wh
 
 Stunning Animations        
 
-###### Tools used:
+##### Tools used:
 
 - Flutter's [ScrollPhysics](https://api.flutter.dev/flutter/widgets/ScrollPhysics-class.html) & [GestureDectector](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html) Classes - to make scrolling feel native on iOS and Android
 - Design tool: [Flare](https://medium.com/rive/flare-launch-d524067d34d8?) - vector design and animation tool - to allow designers to work directly with assets that run in their final app or game (fuly GPU accelerated in real-time)
