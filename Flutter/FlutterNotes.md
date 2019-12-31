@@ -1419,6 +1419,20 @@ a = 123
 
 > Avoid using **var** or **dynamic** for less errors...
 
+### Data Type Conversion
+
+###### Int to String
+
+```
+String stringValue = intValue.toString();
+```
+
+```
+leftDiceNum = Random().nextInt(6)+1;
+    rightDiceNum = Random().nextInt(6)+1;
+    print('Left: '+leftDiceNum.toString()+ ' | Right: '+ rightDiceNum.toString());
+```
+
 
 
 ## String Interpolation
