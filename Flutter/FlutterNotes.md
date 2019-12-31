@@ -1304,7 +1304,7 @@ class DicePage extends StatelessWidget {
 
 Shortcut: type "stful"     
 
-Same as Stateless widget, copy all the cut all the code into the Stateless widget.     
+Same as Stateless widget, copy all the cut all the code that will be **changed due to diff states**, into the Stateless widget.     
 
 Only difference is  the **setState()** method
 
@@ -1439,7 +1439,27 @@ void main() {
 
 
 
+## Useful Libraries
 
+### Dart Math Library
+
+https://api.dartlang.org/stable/2.7.0/dart-math/dart-math-library.html
+
+```
+import 'dart:math';
+```
+
+#### Useful functions:
+
+- random
+
+  ```
+  leftDiceNumber = Random().nextInt(10)
+  // random number btwn 0 to 9
+  // range of 10
+  ```
+
+  
 
 <br/>
 
