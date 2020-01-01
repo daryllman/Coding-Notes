@@ -31,9 +31,12 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    8. URL Launcher
    9. Layout Tips
 4. **Section 4: Handling States & Functions**
-5. **Dart Language**
-6. **Other Cool Open-Source Flutter Apps**
-7. ....
+5. **Flutter Development Essentials**
+   1. Flutter Packages
+   2. 
+6. **Dart Language**
+7. **Other Cool Open-Source Flutter Apps**
+8. ....
 
 <br>
 
@@ -1329,7 +1332,75 @@ FlatButton(
 
 Inside setState(), the app sees what variable is changed. Afterwards, the app looks at the code and see where else is this variable used and will affect UI changes.
 
+
+
+
+
 <br/>
+
+# Flutter Development Essentials
+
+## Flutter Packages
+
+See all the published open-source packages        
+
+https://pub.dev/      
+
+Packages may your live easier with less code and complexity by using the functions/widgets created by other people already.
+
+### How to Use:
+
+1. #### Depend on it (Add dependency)      
+
+   In pubspec.yaml
+
+   ```
+   dependencies:
+   	english_words: ^3.1.5
+   ```
+   > If no version number is given, the latest version would be used      
+   >
+   > What does '^' mean?: To grab any latest version that starts with the major version. Ie. for ^3.1.5, this means any latest version 3.     
+   >
+   > Important to specify version as new packages may break your code
+
+2. #### Install it
+
+   With pub:
+
+   ```
+   $ pub get
+   ```
+
+   With Flutter:
+
+   ```
+   flutter packages get
+   ```
+
+   *(Or just click on 'Packages get' in android studio)
+
+3. #### Import package 
+
+   ```
+   import 'package:english_words/english_words.dart'
+   ```
+
+   
+
+   <br/>
+
+   
+
+### Useful Packages:
+
+#### package1
+
+
+
+<br/>
+
+
 
 
 
@@ -1381,6 +1452,87 @@ void printSomething(){
 	print('Hello world')
 }
 ```
+
+
+
+### Functions with Arguments
+
+Need to specify data type too, like other statically-typed languages like java
+
+```
+void playSound(int noteNum){
+    final player = AudioCache();
+    player.play('note$noteNum.wav');
+  }
+```
+
+##### Specifying with Argument name
+
+```
+void greet({String personToGreet, String greeting}){
+print('$greeting $personToGreet')
+}
+//______________________________
+void main(){
+	greet(greeting: 'How are u', personToGreet: 'Jack');
+}
+```
+
+> To use this kind of function, you must specify which argument are you referring to.
+
+### Functions with Output
+
+Need to specify the datatype of the output that is returned from function
+
+```
+double myFunction(){
+	double pi = 3.14;
+	return pi * 2; //OUTPUT. Data type is double
+}
+//______________________________
+void main(){
+	double result = myFunction();
+}
+```
+
+#### Return a Widget
+
+You can build a widget in a function and return a that widget in the function too.
+
+```
+Expanded buildKey({Color keyColor, int keyNum}) {
+    return Expanded(
+      child: FlatButton(
+        color: keyColor,
+        onPressed: () {
+          playSound(keyNum);
+        },
+      ),
+    );
+  }
+  // This returns an Expanded Widget
+  
+ //____________________
+....
+buildKey(keyColor:Colors.red, keyNum: 1),
+...
+```
+
+### Fat Arrow Functions
+
+Useful if the function is made up a **single line of instruction** 
+
+```
+int add(){
+return 5+2;
+}
+
+// IS EQUIVALENT TO
+
+int add() => 5+2;
+```
+
+
 
 ## Data Types & Variables
 
