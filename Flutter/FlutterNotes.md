@@ -31,12 +31,15 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    8. URL Launcher
    9. Layout Tips
 4. **Section 4: Handling States & Functions**
-5. **Flutter Development Essentials**
+5. **Publishing your Flutter Application**
+   1. Android
+   2. iOS
+6. **Flutter Development Essentials**
    1. Flutter Packages
    2. 
-6. **Dart Language**
-7. **Other Cool Open-Source Flutter Apps**
-8. ....
+7. **Dart Language**
+8. **Other Cool Open-Source Flutter Apps**
+9. ....
 
 <br>
 
@@ -558,7 +561,7 @@ Make sure the names of the icons in the mipmap folders must be "ic_launcher"
 >
 > Go to res folder and create new Image Asset      
 >
-> Go to path and pick the image of the icon you want       
+> Go to **Path** and pick the image of the icon you want       
 >
 > Manually resize every app icon you want so that it looks good.     
 >
@@ -1337,6 +1340,98 @@ Inside setState(), the app sees what variable is changed. Afterwards, the app lo
 
 
 <br/>
+
+
+
+
+
+
+
+# Publishing your Flutter Application
+
+## Android
+
+Refer to official documentation for latest release instructions
+
+[Preparing an Android App for Release](https://flutter.io/android-release/)
+
+### Instructions
+
+1. #### Change Display Name of Application
+
+   Go to AndroidManifest.xml under:     
+
+   android>app>src>main>AndroidManifest.xml 
+
+   ```
+   <application
+       android:name="io.flutter.app.FlutterApplication"
+       android:label="YOUR APPLICATION NAME HERE"
+       android:icon="@mipmap/ic_launcher">
+   ```
+
+2. #### Add Launcher Icon
+
+   Generate your **mipmap** folders
+
+   > www.appicon.co is a good place to do so
+
+   Go to android>app>src>res          
+
+   Replace all the mipmap folders      
+
+   Method 2:        
+
+   - Create new 'Image Asset' under that res folder
+
+   - Tweak until you like it
+   - To remove background: Go to Legacy and set all shapes as None
+
+   > There are many methods... see this [stackoverflow ](https://stackoverflow.com/questions/37085753/android-studio-image-asset-launcher-icon-background-color) link
+
+3. #### Remove Debug banner
+
+   For MaterialApp in main.dart,
+
+   ```
+   MaterialApp(
+    ...
+    debugShowCheckedModeBanner: false
+    ...
+   )
+   ```
+
+   Or open Flutter Inspector> More Actions> Hide Debug Mode Banner     
+
+   Or Run> Flutter Run 'main.dart' in Release Mode      
+
+   [Stackoverflow link](https://stackoverflow.com/questions/48893935/how-to-remove-debug-banner-in-flutter-on-android-emulator)
+
+## iOS
+
+Refer to official documentation for latest release instructions
+
+[Preparing an iOS App for Release](https://flutter.io/ios-release/)
+
+### Instructions
+
+1. #### Change Display Name of Application
+
+   Open Xcode
+
+2. #### Add Launcher Icon
+
+   Go to ios>Runner>Assets.xcassets     
+
+   Delete Assets.xcassets folder and copy the generated Assets.xcassets folder in.     
+
+<br/>
+
+
+
+
+
+
 
 # Flutter Development Essentials
 
