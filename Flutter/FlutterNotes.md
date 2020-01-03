@@ -38,6 +38,12 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    1. Flutter Packages
    2. 
 7. **Dart Language**
+   1. Print to Console
+   2. Functions
+   3. Data Types & Variables
+   4. String Interpolation
+   5. Classes
+   6. Useful Libraries
 8. **Other Cool Open-Source Flutter Apps**
 9. ....
 
@@ -1493,6 +1499,22 @@ Packages may your live easier with less code and complexity by using the functio
 
 
 
+## Project Management
+
+### Adding TODOs
+
+TODOs are comments written (highlighted in green) that can be helpful for working in teams.       
+
+You add a visible comment for your team member to see. For example if you are building the rough structure of your app, you modularize the app into smaller parts and for those parts, you add TODO comments 
+
+> TODO comments are special because they can be seen at the TODO tab at the bottom of the IDE - helps us to see if there are any TODOs and where is it exactly.
+
+```
+//TODO: Add a Row here as your score keeper
+```
+
+
+
 <br/>
 
 
@@ -1697,6 +1719,14 @@ void main() {
   }
 }
 ```
+
+
+
+## Classes
+
+
+
+
 
 
 
