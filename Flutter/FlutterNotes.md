@@ -1770,14 +1770,36 @@ class Question{
     questionAnswer = a;
   }
 }
+//______________________
+Question newQns = Question(q:'hi',a: false);
 ```
 
-> Note that for the contructor, they are unclosed in curly brackets
+> Note that for the contructor, they are enclosed in curly brackets for this way.
+
+```
+class Question{
+  String questionText;
+  bool questionAnswer;
+
+  Question(String q, bool a){
+    questionText = q;
+    questionAnswer = a;
+  }
+}
+//______________________
+Question newQns = Question('hi',false);
+```
+
+
 
 ### Instantiaton
 
 ```
 Question q1 = Question(q:'hi',a: false);
+```
+
+```
+Question newQns = Question('hi',false);
 ```
 
 
@@ -1807,6 +1829,113 @@ import 'dart:math';
   ```
 
   
+
+## Object Oriented Programming (OOP)
+
+There are 4 main pillars of OOP
+
+- Abstraction
+- Encapsulation
+- Inheritance
+- Polymorphism
+
+### Abstraction
+
+**Modularizing** your code - into smaller pieces of code       
+
+Instead of having a big chunk of code that does everything - spaghetti code,     
+
+we have smaller piece of code that does a specific job      
+
+For Flutter and Dart, we can do Abstraction by creating new **classes** in separate **dart files** - that does a specific job        
+
+.         
+
+### Encapsulation
+
+Building a 'wall' between the different classes and their roles - they should only be concerned with their own jobs and minimal interaction.        
+
+#### Private Properties
+
+Making property **private** in a class.     
+
+In Dart, this is down with an **underscore** in front of variable name.
+
+```
+List<String> _quizBank = ['hi', 'yo'];
+```
+
+##### Getters & Setters
+
+```
+String getQuestionText(int questionNumber){
+      return _questionBank[questionNumber].questionText;
+    }
+```
+
+> Only this specific class is able to access its own properties. Other classes can only access the properties of this class via the getter/setter methods.
+
+.
+
+### Inheritance
+
+A Class is able to inherit properties and methods from its parent.     
+
+Use **extends** keyword to inherit from a parent class
+
+```
+class Car{
+	int numberOfSeat = 5;
+	void drive(){
+	print('wheels tunr');
+	}
+}
+//____________
+class ElectricCar extends Car{
+	int batteryLevel = 100;
+	
+	void recharge(){
+	batteryLevel = 100;
+	}
+}
+```
+
+In addition to having properties and methods from parent class, you can also define other properties and methods and even override the existing ones.    
+
+.
+
+### Polymorphism
+
+#### Overriding
+
+Sometimes, the subclass/ child class may have different ways of implementing the parent's properties/methods. You can **override** them   
+
+Use **@override** to indicate you are overriding a certain method
+
+```
+class LevitatingCar extends Car{
+	@override
+	void drive(){
+	print('glides forward')
+	}
+
+}
+```
+
+You can also not override totally, but to add on.
+
+```
+class SelfDrivingCar extends Car{
+	@override
+	void drive(){
+	super.drive();
+	print('steering towards destination')
+	}
+
+}
+```
+
+
 
 <br/>
 
