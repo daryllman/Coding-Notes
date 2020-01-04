@@ -1802,6 +1802,34 @@ Question q1 = Question(q:'hi',a: false);
 Question newQns = Question('hi',false);
 ```
 
+### Constructors
+
+Note instead of having to assign properties one by one, Dart actually has an in build way to make the process way easier
+
+```
+class Human{
+	double weight;
+	double height;
+	
+	Human({double weight, double height}){
+		this.weight = weight;
+		this.height = height
+	}
+
+}
+```
+
+```
+// Dart makes this way shorter!
+class Human{
+	double weight;
+	double height;
+	
+	Human({this.weight, this.height})
+
+}
+```
+
 
 
 
@@ -1943,7 +1971,9 @@ class SelfDrivingCar extends Car{
 
 # Other Cool Open-Source Flutter Apps
 
-Cool Apps that other developers have created.
+Cool Apps that other developers have created.     
+
+[Dribble](www.dribble.com) is a good website to see applications created by other people and get inspired by them.
 
 ### History of Everything
 
