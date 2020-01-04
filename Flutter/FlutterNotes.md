@@ -1503,17 +1503,25 @@ Packages may your live easier with less code and complexity by using the functio
 
 ### Adding TODOs
 
-TODOs are comments written (highlighted in green) that can be helpful for working in teams.       
+TODOs are comments written (highlighted in green) that can be helpful for **working in teams**.       
 
-You add a visible comment for your team member to see. For example if you are building the rough structure of your app, you modularize the app into smaller parts and for those parts, you add TODO comments 
+You add a visible comment for your team member to see. For example if you are building the rough **structure of your app**, you modularize the app into smaller parts and for those parts, you add TODO comments 
 
-> TODO comments are special because they can be seen at the TODO tab at the bottom of the IDE - helps us to see if there are any TODOs and where is it exactly.
+> TODO comments are special because they can be seen at the **TODO tab** at the bottom of the IDE - helps us to see if there are any TODOs and where is it exactly.
 
 ```
 //TODO: Add a Row here as your score keeper
 ```
 
 
+
+## VCS
+
+"Version Control System" is a tab at the top of your Android Studio where you are able to check your **local history** and see your changes.       
+
+Android Studio will auto save your changes here, regardless of git version controls.      
+
+so you will be able to **revert** at any point in time to your previous code
 
 <br/>
 
@@ -1661,7 +1669,13 @@ var leftDiceNumber = 1;
 
 ### String
 
-Use single-quote ' '
+Use single-quote ' '       
+
+> Sometimes need to distinguish from ' ' eg.     
+>
+> ```
+> String mystr = 'A slug\'s blood is green';
+> ```
 
 ### Dynamic Data Type
 
@@ -1720,9 +1734,51 @@ void main() {
 }
 ```
 
+## Conditionals
+
+### If-else if-else condition
+
+Same as java
+
+```
+if(track == 'clear'){
+	go();
+}else if{
+	turnRight();
+}else{
+	turnLeft();
+}
+```
 
 
-## Classes
+
+
+
+
+
+## Classes & Objects
+
+### Basic Class
+
+```
+class Question{
+  String questionText;
+  bool questionAnswer;
+
+  Question({String q, bool a}){
+    questionText = q;
+    questionAnswer = a;
+  }
+}
+```
+
+> Note that for the contructor, they are unclosed in curly brackets
+
+### Instantiaton
+
+```
+Question q1 = Question(q:'hi',a: false);
+```
 
 
 
