@@ -31,21 +31,25 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    8. URL Launcher
    9. Layout Tips
 4. **Section 4: Handling States & Functions**
-5. **Publishing your Flutter Application**
+5. **Section 5: Intermediate Flutter UI**
+   1. sdas
+   2. 2sdasd
+   3. sdasd
+6. **Publishing your Flutter Application**
    1. Android
    2. iOS
-6. **Flutter Development Essentials**
+7. **Flutter Development Essentials**
    1. Flutter Packages
    2. 
-7. **Dart Language**
+8. **Dart Language**
    1. Print to Console
    2. Functions
    3. Data Types & Variables
    4. String Interpolation
    5. Classes
    6. Useful Libraries
-8. **Other Cool Open-Source Flutter Apps**
-9. ....
+9. **Other Cool Open-Source Flutter Apps**
+10. ....
 
 <br>
 
@@ -1349,6 +1353,158 @@ Inside setState(), the app sees what variable is changed. Afterwards, the app lo
 
 
 
+# Section 5: Intermediate Flutter UI
+
+## Flutter Themes
+
+Coming up with standard themes that everyone can use across the app - a **standard way of styling** for your app.       
+
+Usually this is set in the **main.dart** file       
+
+There are already existing themes available eg ThemeData.dark(). But if you can create your custom one.      
+
+Go to [Flutter themes](https://flutter.dev/docs/cookbook/design/themes) to see more details, and see what properties affect which widget.       
+
+Or you can use existing themes, but update some colors: 
+
+```
+theme: ThemeData.dark().copyWith(
+.........your updates
+)
+```
+
+To custom change any other widget down the line to not follow the theme you originally set, 
+
+you can do so by wrapping it inside a theme widget.
+
+```
+floatingActionButton: Theme(
+        data: ThemeData.light(),
+        child: FloatingActionButton(
+          child: Icon(Icons.add),
+        ),
+      ),
+```
+
+
+
+## Custom Widgets
+
+If you see yourself repeating a certain way of creating a widget at many places in your app, you should create a custom widget for it. This is done by "**Extract Widget**" method.        
+
+On Flutter Outline tab, select the container you want to be refactored to a widget > Extract Widget > Give a custom widget name > Refactor        
+
+> This will be very useful and save a lot of effort. Imagine if you have to change an attribute, you don't have to go to all places to change that.
+
+```
+class ReusableCard extends StatelessWidget {
+  const ReusableCard({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: Color(0xFF1D1E33),
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    );
+  }
+}
+```
+
+Key class may not be needed. We only need it if there is a need to keep track of the widget on the screen - eg when it is moving or it is animating.
+
+```
+class ReusableCard extends StatelessWidget {
+  ReusableCard({@required this.colour});
+
+  final Color colour;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: colour,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    );
+  }
+}
+```
+
+> **@required** property makes it compulsory to provide     
+>
+> For widgets, recommended to create **constructor with curly braces**. So when using this widget, we have to indicate which property in particular too
+
+###### Adding child property
+
+```
+class ReusableCard extends StatelessWidget {
+  ReusableCard({@required this.colour, this.cardChild});
+
+  final Color colour;
+  final Widget cardChild;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: cardChild,
+      margin: EdgeInsets.all(15.0),
+      decoration: BoxDecoration(
+        color: colour,
+        borderRadius: BorderRadius.circular(10.0),
+      ),
+    );
+  }
+}
+```
+
+> Sometimes, these widgets may not have the same child. So we can make this flexible as well.
+
+
+
+## GestureDetector Widget
+
+How do you make a widget react to a press?        
+
+One way to do it is to wrap a widget in a FlatButton widget to have the onPressed property. But a FlatButton has its own styling already and if you have already more or less created a widget with your intended styling....         
+
+Another way is to implement a **Gesture Detector** to detector other actions. eg onTap, onDoubleTap etc.       
+
+There are a lot more cool properties that the [GestureDetector Widget](https://api.flutter.dev/flutter/widgets/GestureDetector-class.html) can detect:
+
+### Properties
+
+- onTap
+- onDoubleTap
+- onForcePressStart
+- onLongPress
+- onHorizontalDragEnd
+- ....etc       
+
+eg for onTap.
+
+```
+Expanded(
+                  child: GestureDetector(
+                    onTap: (){setState(() {
+                      updateColour(1);
+                    });},
+                    child: ReusableCard(
+                      colour: maleCardColour,
+                      cardChild: IconContent(
+                        icon: FontAwesomeIcons.mars,
+                        label: 'MALE',
+                      ),
+                    ),
+                  ),
+                ),
+```
+
 
 
 
@@ -1525,36 +1681,7 @@ so you will be able to **revert** at any point in time to your previous code
 
 
 
-## Flutter Themes
 
-Coming up with standard themes that everyone can use across the app - a **standard way of styling** for your app.       
-
-Usually this is set in the **main.dart** file       
-
-There are already existing themes available eg ThemeData.dark(). But if you can create your custom one.      
-
-Go to [Flutter themes](https://flutter.dev/docs/cookbook/design/themes) to see more details, and see what properties affect which widget.       
-
-Or you can use existing themes, but update some colors: 
-
-```
-theme: ThemeData.dark().copyWith(
-.........your updates
-)
-```
-
-To custom change any other widget down the line to not follow the theme you originally set, 
-
-you can do so by wrapping it inside a theme widget.
-
-```
-floatingActionButton: Theme(
-        data: ThemeData.light(),
-        child: FloatingActionButton(
-          child: Icon(Icons.add),
-        ),
-      ),
-```
 
 
 
