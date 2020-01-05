@@ -1639,6 +1639,157 @@ For eg we can dig deeper into FloatingActionButton documentation to see how is i
 
 
 
+## Routing
+
+If you want to navigate to a different page/screen, we need to use [Navigation](https://flutter.dev/docs/cookbook/navigation/navigation-basics).     
+
+Read the documentation to find out more. Note that this makes use of **Stack & Pop** idea.
+
+### Navigator.push()
+
+```
+// Within the `FirstRoute` widget
+onPressed: () {
+  Navigator.push(
+    context,
+    MaterialPageRoute(builder: (context) => SecondRoute()),
+  );
+}
+```
+
+Need to provide:
+
+- **context** 
+
+  which is the current build context of current screen - which is the current location of widget in the overall widget tree (look at Flutter Outline)
+
+- **route**
+
+  the *material page route* to build the second route
+
+For routing from Screen1 to Screen2:
+
+```
+class Screen1 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.red,
+        title: Text('Screen 1'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          color: Colors.red,
+          child: Text('Go Forwards To Screen 2'),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return Screen2();
+              }),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+```
+
+> Why **MaterialPageRoute**? MaterialPageRoute helps to control the *page animation* when we are routing between pages. Eg if I'm switching to another page, for android it is a move right animation and for ios it is a move top animation.
+
+
+
+### Navigator.pop()
+
+Note this works like a **Stack**     
+
+Navigator.pop() basically removes the current page from the stack and returns the page remaining on the stack which is the previous page.
+
+```
+// Within the SecondRoute widget
+onPressed: () {
+  Navigator.pop(context);
+}
+```
+
+Eg. Routing from Screen2 back to Screen1
+
+```
+class Screen2 extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.blue,
+        title: Text('Screen 2'),
+      ),
+      body: Center(
+        child: RaisedButton(
+          color: Colors.blue,
+          child: Text('Go Back To Screen 1'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+}
+```
+
+
+
+### Named Routes
+
+What if you need to "navigate to the same screen in many parts of your app, this approach can result in code duplication. The solution is to define a *named route*, and use the named route for navigation."
+
+> If you have to navigate to the same screen and write this code at many different places, there is an easier way of doing this, using **named routes**    
+>
+> https://flutter.dev/docs/cookbook/navigation/named-routes
+
+```
+import 'package:flutter/material.dart';
+import 'screen1.dart';
+import 'screen0.dart';
+import 'screen2.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      initialRoute: '/', // same as home: Screen0(),
+      routes: {
+        '/': (context) => Screen0(),
+        '/first': (context) => Screen1(),
+        '/second': (context) => Screen2(),
+      },
+    );
+  }
+}
+```
+
+Now to push to a different screen, we use **Navigator.pushNamed()**
+
+```
+RaisedButton(
+              color: Colors.red,
+              child: Text('Go To Screen 1'),
+              onPressed: () {
+                Navigator.pushNamed(context, '/first');
+              },
+            ),
+```
+
+
+
+
+
+
+
 # Publishing your Flutter Application
 
 ## Android
@@ -2018,6 +2169,32 @@ leftDiceNum = Random().nextInt(6)+1;
 
 
 
+### Map Data Type
+
+Map is equivalent to dictionary in Python. There are 2 values required:      
+
+Map<KeyType, ValueType> mapName {Key:Value}
+
+```
+Map<String, Int> phoneBook = {
+	'Kyle': 99999,
+	'Amy': 988888,
+}
+//___________
+
+print(phonebook['Amy']);
+
+print(phonebook.length); // print out the length of phonebook
+
+print(phonebook.keys); // print out all the keys
+
+print(phonebook.values); // print out all the values
+```
+
+
+
+
+
 ## String Interpolation
 
 Use **$variableName** with the dollar sign to signify variable name.
@@ -2130,7 +2307,7 @@ class Human{
 }
 ```
 
-
+Map
 
 
 
