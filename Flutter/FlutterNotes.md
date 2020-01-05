@@ -1651,6 +1651,12 @@ Packages may your live easier with less code and complexity by using the functio
 
 ### Useful Packages:
 
+#### Font Awesome Icons
+
+A repo for well-curated icons      
+
+View https://fontawesome.com/icons?from=io to checkout icons you could use.
+
 #### package1
 
 
