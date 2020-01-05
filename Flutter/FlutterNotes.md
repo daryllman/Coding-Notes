@@ -1523,6 +1523,43 @@ Android Studio will auto save your changes here, regardless of git version contr
 
 so you will be able to **revert** at any point in time to your previous code
 
+
+
+## Flutter Themes
+
+Coming up with standard themes that everyone can use across the app - a **standard way of styling** for your app.       
+
+Usually this is set in the **main.dart** file       
+
+There are already existing themes available eg ThemeData.dark(). But if you can create your custom one.      
+
+Go to [Flutter themes](https://flutter.dev/docs/cookbook/design/themes) to see more details, and see what properties affect which widget.       
+
+Or you can use existing themes, but update some colors: 
+
+```
+theme: ThemeData.dark().copyWith(
+.........your updates
+)
+```
+
+To custom change any other widget down the line to not follow the theme you originally set, 
+
+you can do so by wrapping it inside a theme widget.
+
+```
+floatingActionButton: Theme(
+        data: ThemeData.light(),
+        child: FloatingActionButton(
+          child: Icon(Icons.add),
+        ),
+      ),
+```
+
+
+
+
+
 <br/>
 
 
