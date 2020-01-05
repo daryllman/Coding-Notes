@@ -1699,7 +1699,7 @@ class Screen1 extends StatelessWidget {
 
 > Why **MaterialPageRoute**? MaterialPageRoute helps to control the *page animation* when we are routing between pages. Eg if I'm switching to another page, for android it is a move right animation and for ios it is a move top animation.
 
-
+> Note I can pass info to Screen2 too! Just add in the properties into Screen2()  just like how you would initiate a class.
 
 ### Navigator.pop()
 
@@ -1866,7 +1866,7 @@ Refer to official documentation for latest release instructions
 
    Go to ios>Runner>Assets.xcassets     
 
-   Delete Assets.xcassets folder and copy the generated Assets.xcassets folder in.     
+   Delete AppIcon.appiconset folder and copy the generated AppIcon.appiconset folder in.     
 
 <br/>
 
