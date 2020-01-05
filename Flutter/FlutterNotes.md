@@ -47,7 +47,10 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    3. Data Types & Variables
    4. String Interpolation
    5. Classes
-   6. Useful Libraries
+   6. Enumeration
+   7. Ternary Operations
+   8. Functions as First Order Objects
+   9. Useful Libraries
 9. **Other Cool Open-Source Flutter Apps**
 10. ....
 
@@ -830,9 +833,53 @@ height: 20.0,
 ),
 ```
 
+
+
+
+
+
+
 ### Row Widget
 
 Works the same as a Column Widget, but in the other direction - children arranged from left to right
+
+##### CrossAxisAlignment.baseline
+
+For children in a row, we can align their values to a baseline
+
+- Set CrossAxisAlignment to **CrossAxisAlignment.baseline**
+
+  ```
+  crossAxisAlignment: CrossAxisAlignment.baseline,
+  ```
+
+- specify which **textBaseline** property
+
+  ```
+  textBaseline: TextBaseline.alphabetic,
+  ```
+
+```
+Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.baseline,
+                    textBaseline: TextBaseline.alphabetic,
+                    children: <Widget>[
+                      Text(
+                        '180',
+                        style: kNumberTextStyle,
+                      ),
+                      Text(
+                        'cm',
+                        style: kLabelTextStyle,
+                      ),
+                    ],
+                  ),
+```
+
+> This makes all the text align together.
+
+
 
 ## Adding Custom Fonts
 
@@ -1507,6 +1554,89 @@ Expanded(
 
 
 
+## Slider Widget
+
+We can use in-build [Material Design Slider](https://material.io/components/sliders/) with the [Slider Class](https://api.flutter.dev/flutter/material/Slider-class.html)
+
+```
+Slider(
+                        value: height.toDouble(),
+                        min: 120.0,
+                        max: 220.0,
+                        activeColor: Colors.red,
+                        inactiveColor: Colors.grey,
+                        onChanged: (double newValue) {
+                          setState(() {
+                            height = newValue.round();
+                          });
+                        },
+                      ),
+```
+
+To have finer tuning of the colours and properties, we have to tap on the **SliderThemeData** as mentioned in its documentation in [Slider Class](https://api.flutter.dev/flutter/material/Slider-class.html)       
+
+```
+SliderTheme(
+                    data: SliderThemeData(.................),
+                    child: Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      activeColor: Colors.white,
+                      inactiveColor: Color(0xFF8D8E98),
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+                    ),
+                  ),
+```
+
+
+
+ You don't have to override and specify everything inside of SliderThemeData. If you just want to finetune a few details, you can use SliderTheme.of(context).copyWith().    
+
+```
+SliderTheme(
+                    data: SliderTheme.of(context).copyWith(
+                      activeTrackColor: Colors.white,
+                      inactiveTrackColor: Color(0xFF8D8E98),
+                      overlayColor: Color(0x29EB1555),
+                      thumbColor: Color(0xFFEB1555),
+                      thumbShape:
+                          RoundSliderThumbShape(enabledThumbRadius: 15.0),
+                      overlayShape: RoundSliderOverlayShape(overlayRadius: 30.0),
+                    ),
+                    child: Slider(
+                      value: height.toDouble(),
+                      min: 120.0,
+                      max: 220.0,
+                      onChanged: (double newValue) {
+                        setState(() {
+                          height = newValue.round();
+                        });
+                      },
+                    ),
+                  ),
+```
+
+
+
+## Composition over Inheritance
+
+For Swift/Java if we want to create custom widgets, we usually inherit from existing ones and override some of the properties.      
+
+But for Flutter, **Composition is preferred over Inheritance**      
+
+What this means is to create widgets **from scratch using the simplest widgets** possible: ***Composing Widgets***        
+
+This is so Flutter is able to keep our components' performance and keep our apps fast    
+
+We can build real custom widgets from this way because everything in Flutter is open-source - meaning we can see how widgets are being created and we can create our own.     
+
+For eg we can dig deeper into FloatingActionButton documentation to see how is it created - it used RawMaterialButton. Similarly if we want to create our own FAB, we can use RawMaterialButton and do it ourself.
+
 
 
 # Publishing your Flutter Application
@@ -2001,6 +2131,114 @@ class Human{
 ```
 
 
+
+
+
+## Enumeration
+
+Enumeration (or Enums) is "the action of establishing the number of something"
+
+> Its more intuitive if variables have assigned with names (defined in enums) instead of numbers or strings entirely
+
+```
+enum Gender {
+  male,
+  female,
+}
+//____________________________
+
+void updateColour(Gender selectedGender) {
+    if (selectedGender == Gender.male){do this...}
+    if (selectedGender == Gender.female){do this...}
+  }
+```
+
+```
+....
+
+onTap: () {
+                      setState(() {
+                        updateColour(Gender.female);
+                      });
+....
+```
+
+^good and useful for selection/conditions. Instead of using say 'male' or '0'...         This makes code more intuitively readable
+
+
+
+## Ternary Operator
+
+This is a simplified method of writing if-else statements    
+
+From this.
+
+```
+if(isDone == true){
+	print('continue work');
+}else{
+	print('done')
+}
+```
+
+To this.
+
+```
+(isDone == true)? print('continue work') : print('done')
+or
+isDone? print('continue work') : print('done')
+```
+
+```
+bool eligibleToBuy = myAge>21? true : false
+```
+
+
+
+## Functions as First Order Objects
+
+Function can be a 'data type'
+
+```
+int calculator(int n1, int n2, Function calculation){
+	return calculation(n1, n2);
+}
+
+//__________________________
+int add(int n1, int n2){return n1+n2;}
+
+int result = calculator(5,8, add)
+```
+
+```
+Function caluculator = (int n1, int n2, Function calculation){
+	retunr calculation(n1, n2);
+}
+```
+
+See how can it be used in a Class too
+
+```
+class Car {
+
+	Function drive;
+	
+	Car({this.drive})
+	
+	void slowDrive(){print('drive slowly');}
+	void fastDrive(){print('drive quickly');}
+
+}
+
+//________________________
+
+Car myCar = Car(drive: slowDrive);
+print(myCar.drive) 
+// Outputs: Closure 'slowDrive'
+
+myCar.drive();
+// Outputs: drive slowly
+```
 
 
 
