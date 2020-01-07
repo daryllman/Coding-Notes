@@ -2419,6 +2419,91 @@ myCar.drive();
 
 
 
+## Asynchronous
+
+This is used for Asynchronous coding whereby one part of the code needs to wait for an earlier part of the code to finish before it can use its results.
+
+### Async/ Await
+
+#### Old way
+
+```
+Future<ProcessedData> createData(){
+	return _loadFromDisk().then((id){
+		return_fetchNetworkData(id);
+	}).then((data){
+		return ProcessedData(data);
+	})
+}
+```
+
+> This works but its not so readable.
+
+#### New way
+
+```
+Future<ProcesedData> createData() async {
+	final id = await _loadFromDisk();
+	final data = await _fetchNetworkData(id);
+	return ProcessedData(data);
+}
+```
+
+> Much more readable as execution is read line by line.
+
+We just need to add 2 things to any method that we need to make use of Asynchronous property:
+
+- Add "**async**" keyword in the method before the opening curly braces
+
+- Make return type a **Future** - because before this method completes, it has to wait on the futures inside itself. 
+
+  > ie. you have to await on createData() itself, as you have to wait for the result of createData() before it is completed
+
+
+
+### Error Handling
+
+#### Old way
+
+```
+Future<ProcessedData> createData(){
+	return _loadFromDisk().then((id){
+		return_fetchNetworkData(id);
+	}).then((data){
+		return ProcessedData(data);
+	}).catchError(
+		(err){
+			print('Network error: $err');
+			return ProcessedData.empty();
+		},
+		test: (err) => err is HttpException,
+	).whenComplete(() {
+		print('All done!');
+	});
+}
+```
+
+#### New way
+
+Using **Try-Catch** blocks
+
+```
+Future<ProcesedData> createData() async {
+    try{
+    	final id = await _loadFromDisk();
+		final data = await _fetchNetworkData(id);
+		return ProcessedData(data);
+    }on HttpException catch (err){
+    	print('Network error: $err');
+    	return ProcessedData.empty();
+    }finally {
+    	print('All done!')
+    }
+}
+```
+
+
+
 
 
 ## Useful Libraries
