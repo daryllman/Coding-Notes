@@ -47,3 +47,15 @@ This repository contains a collection of notes I have taken down in detail as I 
 - [Connecting Flutter via Bluetooth](https://github.com/daryllman/Coding-Notes/blob/master/Flutter/FlutterBluetoothConnection.md)
 
   Connecting to other hardware devices (eg Arduino) via Bluetooth, and transmit data to one another.
+
+  
+
+## [Sample files](https://github.com/daryllman/Coding-Notes/tree/master/Sample)
+
+- [Sample Markdown](https://github.com/daryllman/Coding-Notes/blob/master/Sample/SampleMarkdown.md)
+
+  Exemplifying all the markdown features - for reference purpose
+
+- [Sample ReadMe](https://github.com/daryllman/Coding-Notes/blob/master/Sample/SampleReadMeFile.md)
+
+  Sample README.md file to serve as quick reference to quickly write readme files for projects
