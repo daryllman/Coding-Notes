@@ -4,7 +4,7 @@ This repository contains a collection of notes I have taken down in detail as I 
 
 
 
-## [Development Setup](https://github.com/daryllman/Coding-Notes/tree/master/Development Setup)
+## [Development Setup](https://github.com/daryllman/Coding-Notes/tree/master/Development%20Setup)
 
 ### Using Git
 
