@@ -2419,9 +2419,151 @@ myCar.drive();
 
 
 
-## Asynchronous
+## Asynchronous Programming
 
-This is used for Asynchronous coding whereby one part of the code needs to wait for an earlier part of the code to finish before it can use its results.
+This is used for Asynchronous coding whereby one part of the code needs to wait for an earlier part of the code to finish before it can use its results. 
+
+> Some things may take some time to load, eg. loading a huge image/file from online with api request. Or retrieving a huge payload. We need to wait this execution to finish before we can do anything with it.    
+>
+> But if this was done Synchronously or '**Blocking**', it will cause a delay and wait for it to load finish before it carries on with the other executions. This is not good.     
+>
+> That is why **Asynchronous** or '**Non-Blocking**' code is used.
+
+### Futures
+
+A simple example of Asynchronous programming
+
+```
+void main() {
+  performTasks();
+}
+
+void performTasks()  {
+  task1();
+  task2();
+  task3();
+}
+
+void task1() {
+  String result = 'task 1 data';
+  print('Task 1 complete');
+}
+
+void task2()  {
+  Duration threeSeconds = Duration(seconds: 3);
+
+  Future.delayed(threeSeconds, (){
+    String result = 'task 2 data';
+    print('Task 2 complete');
+  });
+
+
+}
+
+void task3() {
+  String result = 'task 3 data';
+  print('Task 3 complete');
+}
+
+// Output: 
+// Task 1 complete
+// Task 3 complete
+// Task 2 complete
+```
+
+> Note that Futures will return **null** until the execution is done.
+
+For instance, look at the code below:
+
+```
+import 'dart:io';
+
+void main() {
+  performTasks();
+}
+
+void performTasks()  {
+  task1();
+  String task2Result = task2();
+  task3(task2Result);
+}
+
+void task1() {
+  String result = 'task 1 data';
+  print('Task 1 complete');
+}
+
+String task2()  {
+  Duration threeSeconds = Duration(seconds: 3);
+  String result;
+
+  Future.delayed(threeSeconds, (){
+    String result = 'task 2 data';
+    print('Task 2 complete');
+  });
+  return result;
+
+}
+
+void task3(task2Data) {
+  String result = 'task 3 data';
+  print('Task 3 complete with $task2Data');
+}
+
+// Output: 
+// Task 1 complete
+// Task 3 complete with null
+// Task 2 complete
+```
+
+> Before task2 is done, task3 is already using the value of task2, which is null before it is done.
+
+Solution is to use **async - await**  to wait for result from task2 first below task 3 is executed    
+
+```
+import 'dart:io';
+
+void main() {
+  performTasks();
+}
+
+void performTasks()  async {
+  task1();
+  String task2Result = await task2();
+  task3(task2Result);
+}
+
+void task1() {
+  String result = 'task 1 data';
+  print('Task 1 complete');
+}
+
+Future task2() async {
+  Duration threeSeconds = Duration(seconds: 3);
+  String result;
+
+  await Future.delayed(threeSeconds, (){
+    String result = 'task 2 data';
+    print('Task 2 complete');
+  });
+  return result;
+
+}
+
+void task3(task2Data) {
+  String result = 'task 3 data';
+  print('Task 3 complete with $task2Data');
+}
+
+// Output: 
+// Task 1 complete
+// Task 2 complete
+// Task 3 complete with task 2 data
+```
+
+> Before task2 is called, we have to wait for task2 to finish first. 
+
+
 
 ### Async/ Await
 
