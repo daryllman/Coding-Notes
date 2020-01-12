@@ -1786,7 +1786,61 @@ RaisedButton(
 
 
 
+## Widget Lifecycles
 
+Different states have different lifecycles - for different purposes.
+
+### Stateless Widget
+
+Stateless only has one important lifecycle - **build** method.
+
+```
+class  extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+```
+
+
+
+### Stateful Widget
+
+Stateful widget has the **state** object that helps to keep track of the state of widgets - keep track of variables, eg configurations, properties of widgets - use setState() to update app
+
+```
+class RandomStatefulWidget extends StatefulWidget {
+  @override
+  _State createState() => _State();
+}
+
+class _State extends State<RandomStatefulWidget> {
+  
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+  
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+  
+  @override
+  void deactivate() {
+    // TODO: implement deactivate
+    super.deactivate();
+  }
+}
+```
+
+There are 3 important methods for stateful widgets:
+
+- **initState** - called when state is initialised
+- **build** - when widgets are built and shows up on screen
+- **deactivate** - called when this stateful widget is destroyed
 
 
 
@@ -2518,6 +2572,8 @@ void task3(task2Data) {
 
 > Before task2 is done, task3 is already using the value of task2, which is null before it is done.
 
+### Async/ Await
+
 Solution is to use **async - await**  to wait for result from task2 first below task 3 is executed    
 
 ```
@@ -2563,9 +2619,7 @@ void task3(task2Data) {
 
 > Before task2 is called, we have to wait for task2 to finish first. 
 
-
-
-### Async/ Await
+<br/>
 
 #### Old way
 
