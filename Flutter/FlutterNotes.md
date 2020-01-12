@@ -31,6 +31,11 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    8. URL Launcher
    9. Layout Tips
 4. **Section 4: Handling States & Functions**
+   1. Buttons Widgets
+   2. Functions
+   3. Variables
+   4. Stateful Widget
+   5. Handling Exceptions & Errors
 5. **Section 5: Intermediate Flutter UI**
    1. sdas
    2. 2sdasd
@@ -1394,6 +1399,84 @@ Inside setState(), the app sees what variable is changed. Afterwards, the app lo
 
 
 
+## Handling Exceptions & Errors
+
+### Try-Catch Block
+
+Use Try-Catch-Final blocks to catch exceptions - that can be expected.     
+
+This is important as it **prevents app crashes** from happening, due to various reasons that can be expected and hence can be prevented.
+
+```
+try{
+	//Do something that might fail
+	//If the code fails at any point in time here, jump to the catch block
+}catch{
+	//If there are exceptions, run this block of code.
+	//Catch exceptions that occur.
+}
+```
+
+How to use it:
+
+```
+
+try{
+	String myString = 'abc';
+	double myStringAsDouble = double.parse(myString);
+	print(myStringAsDouble + 5);
+} catch(err){
+	print(e)
+}
+
+// Output:
+// FormatException: Invalid double abc
+```
+
+Note that in **actual practice in Flutter**, we should do the same way as well - using Try-Catch block to handle the return statements
+
+```
+@override
+Widget build(BuildContext context){
+	String myMargin = 'abc';
+	double myMarginAsDouble
+	try{
+		double myMarginAsDouble = double.parse(myString);
+	}catch{
+		myMarginAsDouble = 30.0;
+	}
+	
+	return Scaffold(
+		body: Container(
+		margin: EdgeInsets.all(myMarginAsDouble)
+		)
+	)
+}
+```
+
+OR you could use '??' - which is a ternary operator
+
+```
+@override
+Widget build(BuildContext context){
+	String myMargin = 'abc';
+	double myMarginAsDouble
+	try{
+		double myMarginAsDouble = double.parse(myString);
+	}catch(e){
+		print(e)
+	}
+	
+	return Scaffold(
+		body: Container(
+		margin: EdgeInsets.all(myMarginAsDouble ?? 30.0)
+		)
+	)
+}
+```
+
+> For '??' this means that if myMarginAsDouble has a value, use it. If it is null, use the given value instead.
+
 
 
 <br/>
@@ -2423,6 +2506,80 @@ isDone? print('continue work') : print('done')
 ```
 bool eligibleToBuy = myAge>21? true : false
 ```
+
+### Null Aware Operator
+
+Null Aware Operators are very similar to the **Ternary Operators** above, or rather, an even more simplified version.
+
+```
+someVariable?? defaultValue
+```
+
+> If someVariable is not **null**, use the value given in someVariable.    
+>
+> But if someVariable is **null**, use the defaultValue
+
+
+
+## Handling Exceptions & Errors
+
+### Try-Catch Block
+
+Use Try-Catch-Final blocks to catch exceptions - that can be expected.     
+
+This is important as it **prevents app crashes** from happening, due to various reasons that can be expected and hence can be prevented.
+
+```
+try{
+	//Do something that might fail
+	//If the code fails at any point in time here, jump to the catch block
+}catch{
+	//If there are exceptions, run this block of code.
+	//Catch exceptions that occur.
+}
+```
+
+How to use it:
+
+```
+
+try{
+	String myString = 'abc';
+	double myStringAsDouble = double.parse(myString);
+	print(myStringAsDouble + 5);
+} catch(err){
+	print(e)
+}
+
+// Output:
+// FormatException: Invalid double abc
+```
+
+Note that in **actual practice in Flutter**, we should do the same way as well - using Try-Catch block to handle the return statements
+
+### Throwing Errors
+
+Similar to how you handle Errors/Exceptions, you can also create your own exceptions and 'throw' them.
+
+```
+void expectsLessThan10(int n){
+	if(n>10){
+		throw 'N is not less than 10';
+	}
+}
+//.......
+
+try{
+	expectsLessThan10(12);
+}catch{
+	print(e);
+}
+
+// Output:
+// 'N is not less than 10'
+```
+
+Note it is recommended to **handle specific exceptions**. ie. there may be a few expected exceptions that you know, and you ought to handle each case seperately with specificity.
 
 
 
