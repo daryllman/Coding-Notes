@@ -40,13 +40,14 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    1. sdas
    2. 2sdasd
    3. sdasd
-6. **Publishing your Flutter Application**
+6. **Section 6: Using APIs**
+7. Publishing your Flutter Application**
    1. Android
    2. iOS
-7. **Flutter Development Essentials**
+8. **Flutter Development Essentials**
    1. Flutter Packages
    2. 
-8. **Dart Language**
+9. **Dart Language**
    1. Print to Console
    2. Functions
    3. Data Types & Variables
@@ -56,8 +57,8 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    7. Ternary Operations
    8. Functions as First Order Objects
    9. Useful Libraries
-9. **Other Cool Open-Source Flutter Apps**
-10. ....
+10. **Other Cool Open-Source Flutter Apps**
+11. ....
 
 <br>
 
@@ -1925,6 +1926,63 @@ There are 3 important methods for stateful widgets:
 - **build** - when widgets are built and shows up on screen
 - **deactivate** - called when this stateful widget is destroyed
 
+<br/>
+
+
+
+# Section 6: Using APIs
+
+"An Application Programming Interface (API) is a set of commands, functions, protocols, and objects that programmers can use to **create software** or **interact with an external system**    
+
+It provides developers with standard commands for performing **common operations** so they do not have to write the code from scratch - wikipedia"
+
+> Side note, when we are using Flutter to create software, we can be considered as using an API as well.    
+>
+> But most of the time, most people refer **APIs to interaction with an external system**
+
+API is an interface that dictates how you can interact with other program/server.     
+
+-There are only *authorised ways* to interact, that is defined - read the documentation of the API.     
+
+## HTTP Requests
+
+### GET Request
+
+The most used request is the **GET request** to retrieve data.
+
+```
+void getData() async {
+    Response response = await get('http://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=b6907d289e10d714a6e88b30761fae22');
+    print(response.body);
+  }
+```
+
+> Usually, the payload would be a **JSON formatted response** - use key-pair
+
+### Status Codes
+
+Status codes are a standard way of telling us the success of a request. Most well-known is 404, which is client error.
+
+Check the list of codes [available](https://restfulapi.net/http-status-codes/)      
+
+**1XX**: Informational | "Hold On"    
+
+**2XX**: Success | "Here is your info"      
+
+**3XX**: Redirection | "Go away you are not allowed"    
+
+**4XX**: Client Error | "There is something wrong with me"
+
+> Most likely I sent the wrong request url that doesnt exist      
+
+**5XX**: Server Error | "There is something wrong with server..."
+
+
+
+
+
+<br/>
+
 
 
 # Publishing your Flutter Application
@@ -2107,9 +2165,21 @@ so you will be able to **revert** at any point in time to your previous code
 
 
 
+## Flutter Cookbook
 
+The [Flutter Cookbook](https://flutter.dev/docs/cookbook) contains all the basic essentials - notebook of where to get important information.
 
-
+- Animation
+- Design
+- Forms
+- Gestures
+- Images
+- Lists
+- Maintenance
+- Networking
+- Persistance
+- Plugins
+- Testing
 
 <br/>
 
@@ -2869,7 +2939,9 @@ Future<ProcesedData> createData() async {
 
 ### Dart Math Library
 
-https://api.dartlang.org/stable/2.7.0/dart-math/dart-math-library.html
+https://api.dartlang.org/stable/2.7.0/dart-math/dart-math-library.html     
+
+https://flutter.dev/docs/cookbook/networking/fetch-data      
 
 ```
 import 'dart:math';
@@ -2885,7 +2957,46 @@ import 'dart:math';
   // range of 10
   ```
 
-  
+
+### HTTP Package
+
+https://pub.dev/packages/http       
+
+Using it:
+
+```
+import 'package:http/http.dart' as http;
+
+var url = 'https://example.com/whatsit/create';
+var response = await http.post(url, body: {'name': 'doodle', 'color': 'blue'});
+print('Response status: ${response.statusCode}');
+print('Response body: ${response.body}');
+
+print(await http.read('https://example.com/foobar.txt'));
+```
+
+Making Multiple requests to the same server:    
+
+(You can keep open a persistent connection by using a Client rather than one-off requests)
+
+```
+var client = http.Client();
+try {
+  var uriResponse = await client.post('https://example.com/whatsit/create',
+      body: {'name': 'doodle', 'color': 'blue'});
+  print(await client.get(uriResponse.bodyFields['uri']));
+} finally {
+  client.close();
+}
+```
+
+> Make sure to close the client when done.
+
+> "You can also exert more fine-grained control over your requests and responses by creating [Request](https://pub.dev/documentation/http/latest/http/Request-class.html) or [StreamedRequest](https://pub.dev/documentation/http/latest/http/StreamedRequest-class.html) objects yourself and passing them to [Client.send](https://pub.dev/documentation/http/latest/http/Client/send.html)."
+
+
+
+
 
 ## Object Oriented Programming (OOP)
 
