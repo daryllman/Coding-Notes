@@ -2814,6 +2814,12 @@ We just need to add 2 things to any method that we need to make use of Asynchron
 
 
 
+> Note we can only await methods that return a Future object.
+
+
+
+
+
 ### Error Handling
 
 #### Old way
