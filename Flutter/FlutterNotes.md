@@ -2996,6 +2996,40 @@ try {
 
 
 
+### JSON (dart: convert)
+
+https://api.flutter.dev/flutter/dart-convert/dart-convert-library.html    
+
+```
+import 'dart:convert';
+```
+
+
+
+One of the most useful function here is the **json convertor**.     
+
+Use **jsonDecode**
+
+```
+var temperature = jsonDecode(data)['main']['temp'];
+```
+
+> Access values like key-value pairs - similar to dictionary in python.     
+>
+> Download chrome 'json viewer awesome for good parsing view.'
+
+```
+var decodedData = jsonDecode(data);
+
+      double temperature = decodedData['main']['temp'];
+      int condition = decodedData['weather'][0]['id'];
+      String cityName = decodedData['name'];
+```
+
+> Initialise the json decoded data only once. Use it instead of having to decode it all the time to find the various values.
+
+
+
 
 
 ## Object Oriented Programming (OOP)
