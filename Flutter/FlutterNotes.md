@@ -1400,6 +1400,41 @@ Inside setState(), the app sees what variable is changed. Afterwards, the app lo
 
 
 
+#### Passing Data in a Stateful Widget
+
+```
+class LocationScreen extends StatefulWidget {
+
+  LocationScreen({this.locationWeather});
+
+  final locationWeather;
+
+  @override
+  _LocationScreenState createState() => _LocationScreenState();
+}
+
+class _LocationScreenState extends State<LocationScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    print(widget.locationWeather);
+  }
+  
+  
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(......
+```
+
+Note you can access the property of the LocationScreen Stateful Widget from the LocationScreen State via ' **widget**'
+
+> Look at how locationWeather is retrieved through widget.locationWeather
+
+
+
+
+
 ## Handling Exceptions & Errors
 
 ### Try-Catch Block
@@ -1704,6 +1739,46 @@ SliderTheme(
                     ),
                   ),
 ```
+
+
+
+## TextField widget
+
+Input text field that is fully customizable.
+
+``` 
+TextField(
+                  style: TextStyle(
+                    color: Colors.black,
+                  ),
+                  decoration: kTextFieldInputDecoration
+                ),
+```
+
+```
+const kTextFieldInputDecoration = InputDecoration(
+  filled: true,
+  fillColor: Colors.white,
+  icon: Icon(
+    Icons.location_city,
+    color: Colors.white,
+  ),
+  hintText: 'Enter City Name',
+  hintStyle: TextStyle(
+    color: Colors.grey,
+  ),
+  border: OutlineInputBorder(
+    borderRadius: BorderRadius.all(
+      Radius.circular(10.0),
+    ),
+    borderSide: BorderSide.none,
+  ),
+);
+```
+
+> Baseline template text field to work upon
+
+
 
 
 
