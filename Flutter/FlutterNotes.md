@@ -2001,6 +2001,103 @@ There are 3 important methods for stateful widgets:
 - **build** - when widgets are built and shows up on screen
 - **deactivate** - called when this stateful widget is destroyed
 
+
+
+
+
+## Specific UI for different OS platforms
+
+``` 
+import 'dart:io' show Platform;
+```
+
+> Only the Platform.dart file is needed to check which platform OS is running  - android, iOS etc.
+
+### Which UI to display
+
+Create Intermediate function to select which UI to display - depending on phone OS used
+
+```
+Widget getPicker(){
+    if(Platform.isIOS){return iOSPicker();}
+    else if (Platform.isAndroid){return androidDropdown();}
+  }
+```
+
+Of course, iOSPicker() and androidDropdown() are functions created that returns widgets
+
+```
+CupertinoPicker iOSPicker(){
+    List<Text> pickerItemsList = [];
+    for (String currency in currenciesList) {
+      pickerItemsList.add(Text(
+        currency,
+        style: TextStyle(color: Colors.white),
+      ));
+    }
+
+    return CupertinoPicker(
+      backgroundColor: Colors.lightBlue,
+      itemExtent: 32.0,
+      onSelectedItemChanged: (selectedIndex) {
+        print(selectedIndex);
+      },
+      children: pickerItemsList,
+    );
+
+  }
+```
+
+```
+DropdownButton<String> androidDropdown() {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+    for (String currency in currenciesList) {
+      //for (int i = 0; i < currenciesList.length; i++) {
+      //String currency = currenciesList[i];
+      var newItem = DropdownMenuItem(
+        child: Text(currency),
+        value: currency,
+      );
+      dropdownItems.add(newItem);
+    }
+    return DropdownButton<String>(
+      value: selectedCurrency,
+      items: dropdownItems,
+      onChanged: (value) {
+        setState(() {
+          selectedCurrency = value;
+        });
+      },
+    );
+  }
+```
+
+Afterwards, we just need to use the getPicker() method which already helps us select which UI to show
+
+```
+Container(
+            height: 150.0,
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom: 30.0),
+            color: Colors.lightBlue,
+            child: getPicker(),
+          ),
+```
+
+Or do this in a single line of code:
+
+```
+Container(
+            height: 150.0,
+            alignment: Alignment.center,
+            padding: EdgeInsets.only(bottom: 30.0),
+            color: Colors.lightBlue,
+            child: Platform.isIOS ? iOSPicker() : androidDropdown(),
+          ),
+```
+
+
+
 <br/>
 
 
@@ -2511,6 +2608,36 @@ if(track == 'clear'){
 
 
 
+## Loops
+
+eg. For-loop
+
+```
+main(){
+	for(int i =2; i<15; i++){
+	print(i);
+	}
+
+}
+```
+
+```
+List<String> fruits = [
+	'apple', 'pear', 'orange', 'grape', 'banana'
+];
+
+void pieMaker(){
+	for(String fruit in fruits){
+		print(fruit + ' pie');
+	}
+
+}
+```
+
+
+
+
+
 
 
 
@@ -2551,7 +2678,7 @@ Question newQns = Question('hi',false);
 
 
 
-### Instantiaton
+### Instantiation
 
 ```
 Question q1 = Question(q:'hi',a: false);
