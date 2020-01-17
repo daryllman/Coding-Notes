@@ -1515,6 +1515,91 @@ Widget build(BuildContext context){
 
 
 
+## Routing
+
+How to navigate to different screens:
+
+```
+// in main.dart
+void main() => runApp(PrivateChat());
+
+class PrivateChat extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        textTheme: TextTheme(
+          body1: TextStyle(color: Colors.black54),
+        ),
+      ),
+      //home: WelcomeScreen(), ---cannot use this if you are using initial route.
+      initialRoute: 'welcome_screen',
+      routes: {
+        'welcome_screen' : (context)=> WelcomeScreen(),
+        'login_screen' : (context)=> LoginScreen(),
+        'registration_screen' : (context)=> RegistrationScreen(),
+        'chat_screen' : (context)=> ChatScreen(),
+      },
+    );
+  }
+}
+
+```
+
+> BUT using string is not the best idea to name the route as it is very prone to errors.    
+>
+> Name this as an id inside the individual screen dart files.
+
+```
+//in welcome_screen.dart
+class WelcomeScreen extends StatefulWidget {
+  static String id = 'welcome_screen';
+
+  @override
+  _WelcomeScreenState createState() => _WelcomeScreenState();
+}
+
+class _WelcomeScreenState extends State<WelcomeScreen> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold( ....
+    ....
+```
+
+```
+// in main.dart
+void main() => runApp(PrivateChat());
+
+class PrivateChat extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        textTheme: TextTheme(
+          body1: TextStyle(color: Colors.black54),
+        ),
+      ),
+      //home: WelcomeScreen(), ---cannot use this if you are using initial route.
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        WelcomeScreen.id : (context)=> WelcomeScreen(),
+        'login_screen' : (context)=> LoginScreen(),
+        'registration_screen' : (context)=> RegistrationScreen(),
+        'chat_screen' : (context)=> ChatScreen(),
+      },
+    );
+  }
+}
+```
+
+> Realise how this is much better in terms of execution. Less prone to errors.
+
+
+
+
+
 <br/>
 
 
