@@ -1689,7 +1689,7 @@ class PrivateChat extends StatelessWidget {
 }
 ```
 
-> If we are doing this format/way, we **MUST** define one route with just **'/'** a simple forward slash, if not the app will crash.
+> If we are doing this format/way, we **MUST** define one route with just **'/'** a simple forward slash nothing, if not the app will crash.
 
 
 
