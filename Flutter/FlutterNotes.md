@@ -1517,7 +1517,9 @@ Widget build(BuildContext context){
 
 ## Routing
 
-How to navigate to different screens:
+How to navigate to different screens:    
+
+### Using NamedRoutes
 
 ```
 // in main.dart
@@ -1554,7 +1556,7 @@ class PrivateChat extends StatelessWidget {
 ```
 //in welcome_screen.dart
 class WelcomeScreen extends StatefulWidget {
-  static String id = 'welcome_screen';
+  static const String id = 'welcome_screen';
 
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
@@ -1595,6 +1597,99 @@ class PrivateChat extends StatelessWidget {
 ```
 
 > Realise how this is much better in terms of execution. Less prone to errors.
+
+End product:
+
+```
+import 'package:flutter/material.dart';
+import 'package:private_chat/screens/welcome_screen.dart';
+import 'package:private_chat/screens/login_screen.dart';
+import 'package:private_chat/screens/registration_screen.dart';
+import 'package:private_chat/screens/chat_screen.dart';
+
+void main() => runApp(PrivateChat());
+
+class PrivateChat extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        textTheme: TextTheme(
+          body1: TextStyle(color: Colors.black54),
+        ),
+      ),
+      //home: WelcomeScreen(), ---cannot use this if you are using initial route.
+      initialRoute: WelcomeScreen.id,
+      routes: {
+        WelcomeScreen.id : (context)=> WelcomeScreen(),
+        LoginScreen.id : (context)=> LoginScreen(),
+        RegistrationScreen.id : (context)=> RegistrationScreen(),
+        ChatScreen.id : (context)=> ChatScreen(),
+      },
+    );
+  }
+}
+
+```
+
+### Navigating to other screens using NamedRoutes
+
+```
+Navigator.pushNamed(context, LoginScreen.id);
+```
+
+```
+MaterialButton(
+                  onPressed: () {
+                    //Go to login screen.
+                    Navigator.pushNamed(context, LoginScreen.id);
+                  },
+                  minWidth: 200.0,
+                  height: 42.0,
+                  child: Text(
+                    'Log In',
+                  ),
+                ),
+```
+
+> Use that **static id** variable that was defined.             
+>
+> Better than using pure plain *string paths* (url format)  eg '/login' - reduces error
+
+
+
+## NamedRoutes (URL path format)
+
+A less preferred format (but example is shown below)
+
+```
+void main() => runApp(PrivateChat());
+
+class PrivateChat extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.dark().copyWith(
+        textTheme: TextTheme(
+          body1: TextStyle(color: Colors.black54),
+        ),
+      ),
+      //home: WelcomeScreen(), ---cannot use this if you are using initial route.
+      initialRoute: '/',
+      routes: {
+        '/' : (context)=> WelcomeScreen(),
+        '/login' : (context)=> LoginScreen(),
+        '/registration' : (context)=> RegistrationScreen(),
+        '/chat' : (context)=> ChatScreen(),
+      },
+    );
+  }
+}
+```
+
+> If we are doing this format/way, we **MUST** define one route with just **'/'** a simple forward slash, if not the app will crash.
 
 
 
