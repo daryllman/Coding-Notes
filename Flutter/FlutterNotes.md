@@ -3601,6 +3601,84 @@ Future<ProcesedData> createData() async {
 
 
 
+## Mixins
+
+"Mixins are a way of reusing a class's code in multiple class hierarchies"    
+
+This comes from a fundamental inheritance problem ---we cannot inherit from more than one parent class. What if we want to inherit certain methods from both parents? How do we do so with good code practice?     
+
+This is where Mixin comes into play, encouraging **good code re-usability**
+
+```
+class Animal{
+	void move(){
+		print('moved');
+	}
+}
+//__________________
+
+class Fish extends Animal{
+	@override
+	void move(){
+		super.move();
+		print('by swimming');
+	}
+}
+//__________________
+
+class Bird extends Animal{
+	@override
+	void move(){
+		super.move();
+		print('by flying');
+	}
+}
+```
+
+But what about Ducks that can fly and swim?
+
+```
+// Using Mixin
+
+mixin CanFly{
+	void fly(){
+		print('move by flying');
+	}
+}
+//__________________
+
+mixin CanSwim{
+	void swim(){
+		print('move by swimming');
+	}
+}
+//__________________
+
+class Duck extends Animal with CanSwim, CanFly{
+
+}
+
+...
+// Now Duck has properties of Animal, and is able to fly and swim.
+Duck().move();
+Duck().fly();
+Duck().swim();
+```
+
+> Now Duck is able to both fly and swim    
+>
+> Able to **reuse code** from lots of different classes and keeping code **modular**      
+>
+> **Alternative to using a subclass**
+
+Benefits tend to be with large programs with lots of classes that need to share some capabilities      
+
+Having that shared capability split out into a mixin makes code easier to maintain.
+
+(you just need to edit the mixin and it will be reflected in classes that use the mixin)
+
+
+
 
 
 ## Useful Libraries
