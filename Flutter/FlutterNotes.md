@@ -2377,6 +2377,250 @@ Hero(
 
 
 
+## Custom Animations
+
+[Animation Controller ](https://api.flutter.dev/flutter/animation/AnimationController-class.html) is the main widget we can use to set custom animations - whatever we want.   
+
+In general there are 3 things that you need to provide:
+
+- A Ticker
+- Animation Controller
+- An Animation Value
+
+```
+// Extending welcomescreenstate with new ability to act as a ticker for a single animation
+class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
+....
+```
+
+```
+// Animation Controller
+class _WelcomeScreenState extends State<WelcomeScreen> with SingleTickerProviderStateMixin{
+
+  AnimationController controller;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+  }
+```
+
+> **vsync** tells us which is the ticker for the animation controller. '**this**' will refer to the welcomescreenstate itself.
+
+```
+// Set Animation Value
+...
+@override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+    controller.forward();
+  }
+...
+```
+
+> 1 seconds is 60 ticks on the ticker.
+
+Need to add setState to notify of changes.   
+
+Use **controller.value**
+
+```
+@override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+    );
+    controller.forward();
+    controller.addListener((){
+      setState(() {});
+      print(controller.value);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.red.withOpacity(controller.value),
+      ...
+```
+
+You can also change the **upperBound** values
+
+```
+// Changing Upper Bound values of controller.value
+...
+@override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+      upperBound: 100.0,
+    );
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+      print(controller.value);
+    });
+  }
+...
+```
+
+
+
+### Curved Animation Widget
+
+If you dont want a linear change, but something that is varying, you can use the [Curved Animation Widget](https://api.flutter.dev/flutter/animation/CurvedAnimation-class.html)    
+
+You can do normal curved changes, jumping changes etc. See the [collection of animations ](https://api.flutter.dev/flutter/animation/Curves-class.html) here and see the many different curves animations.
+
+```
+...
+class _WelcomeScreenState extends State<WelcomeScreen>
+    with SingleTickerProviderStateMixin {
+  AnimationController controller;
+  Animation animation;
+
+  @override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+      //upperBound: 100.0,
+    );
+
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate); //with curves, we cannot have an upperBound that is > 1
+
+    controller.forward();
+    controller.addListener(() {
+      setState(() {});
+      print(animation.value);
+    });
+  }
+  ....
+```
+
+> Note if you are using animation.value, the upperbound of animation controller **cannot be more than 1**.
+
+
+
+### Looping Animations
+
+Check AnimationStatus. **AnimationStates.completed** is when forward animation is done and **AnimatonStatus.dismissed** is when reverse animation is done.     
+
+For looping, check statuses and apply forward & reverse animations
+
+``` 
+@override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+      //upperBound: 100.0,
+    );
+
+    animation = CurvedAnimation(parent: controller, curve: Curves.decelerate); //with curves, we cannot have an upperBound that is > 1
+
+    controller.forward();
+    animation.addStatusListener((status){
+      if(status == AnimationStatus.completed){
+        controller.reverse(from: 1.0);
+      }else if (status == AnimationStatus.dismissed){
+        controller.forward();
+      }
+    });
+    
+    
+
+    controller.addListener(() {
+      setState(() {});
+      print(animation.value);
+    });
+  }
+```
+
+
+
+### Dispose Animation Controller
+
+Note that animation controller will still live and waste resources regardless if you change screens - if you do not dispose of them.
+
+```
+...
+@override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+...
+```
+
+
+
+## Tween Animation
+
+There are many tween animations that allows the change of property gradually, eg color... etc
+
+visit [Tween](https://api.flutter.dev/flutter/animation/Tween-class.html) to find out more.      
+
+There is always a **beginning value** and an **end value**
+
+```
+...
+@override
+  void initState() {
+    super.initState();
+    controller = AnimationController(
+      duration: Duration(seconds: 1),
+      vsync: this,
+      //upperBound: 100.0,
+    );
+
+    animation = ColorTween(begin: Colors.red, end: Colors.blue).animate(controller);
+
+    controller.forward();
+
+    controller.addListener(() {
+      setState(() {});
+      print(animation.value);
+    });
+  }
+...
+```
+
+```
+// Using the ColorTween value
+....
+
+@override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: animation.value,
+      ...
+```
+
+
+
+
+
+
+
+
+
+<br/>
+
 
 
 # Publishing your Flutter Application
