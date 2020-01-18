@@ -41,13 +41,16 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    2. 2sdasd
    3. sdasd
 6. **Section 6: Using APIs**
-7. Publishing your Flutter Application**
+   1. HTTP Requests
+7. **Section 7: Animations**
+   1. Hero Animation
+8. Publishing your Flutter Application**
    1. Android
    2. iOS
-8. **Flutter Development Essentials**
+9. **Flutter Development Essentials**
    1. Flutter Packages
    2. 
-9. **Dart Language**
+10. **Dart Language**
    1. Print to Console
    2. Functions
    3. Data Types & Variables
@@ -57,8 +60,8 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    7. Ternary Operations
    8. Functions as First Order Objects
    9. Useful Libraries
-10. **Other Cool Open-Source Flutter Apps**
-11. ....
+11. **Other Cool Open-Source Flutter Apps**
+12. ....
 
 <br>
 
@@ -2331,9 +2334,48 @@ Check the list of codes [available](https://restfulapi.net/http-status-codes/)
 
 
 
-
-
 <br/>
+
+
+
+# Section 7: Animations
+
+## Hero Animation
+
+[Hero Animation](https://flutter.dev/docs/development/ui/animations/hero-animations)  is a transition whereby state 1 and state 2 has shared element and you can see how that shared element transitions between the 2 states (or screens for most cases)        
+
+You have to assign the **same tag** to this common element for both states.       
+
+```
+// Screen 1
+...
+Hero(
+                  tag: 'logo',
+                  child: Container(
+                    child: Image.asset('images/logo.png'),
+                    height: 60.0,
+                  ),
+                ),
+                
+                ...
+```
+
+``` 
+// Screen 2
+...
+Hero(
+              tag: 'logo',
+              child: Container(
+                height: 200.0,
+                child: Image.asset('images/logo.png'),
+              ),
+            ),
+            ...
+```
+
+> Both places are assigned the same tag of  'logo' - Hero widget will know how to transition, note how both has different heights
+
+
 
 
 
