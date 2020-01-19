@@ -2614,8 +2614,6 @@ There is always a **beginning value** and an **end value**
 
 
 
-
-
 <br/>
 
 
@@ -2636,7 +2634,238 @@ Common plugins:
 - [Firebase Auth](https://pub.dev/packages/firebase_auth)
 - [Cloud Firestore](https://pub.dev/packages/cloud_firestore)
 
+## Firebase Auth
 
+### Create Firebase Auth instance first:
+
+```
+class LoginScreen extends StatefulWidget {
+  static const String id = 'login_screen';
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  bool showSpinner = false;
+
+  String email;
+  String password;
+
+.....
+```
+
+### Add sign in method:
+
+```
+RoundedButton(
+                title: 'Log In',
+                color: Colors.lightBlueAccent,
+                onPressed: () async {
+                  setState(() {
+                    showSpinner = true;
+                  });
+                  try{
+                    final user = await _auth.signInWithEmailAndPassword(email: email, password: password);
+                    if(user != null){
+                      Navigator.pushNamed(context, ChatScreen.id);
+                    }
+                    setState(() {
+                      showSpinner = false;
+                    });
+                  }catch(e){
+                    print(e);
+                  }
+
+
+                },
+              )
+```
+
+### Adding a loading spinner:
+
+```
+class LoginScreen extends StatefulWidget {
+  static const String id = 'login_screen';
+
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _auth = FirebaseAuth.instance;
+
+  bool showSpinner = false;
+
+  String email;
+  String password;
+
+
+  @override
+  Widget build(BuildContext context) {
+    return ModalProgressHUD(
+      inAsyncCall: showSpinner,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+```
+
+> Note you have to wrap the whole thing in a ModalprogressHUD (one eg [package](https://pub.dev/packages/modal_progress_hud))
+
+> Must setState on where to start and where to end the spinner - see code above.
+
+
+
+### Get Current User
+
+In pages where the user is logged in, you have to get the current user that is being logged in.
+
+```
+class ChatScreen extends StatefulWidget {
+  static const String id = 'chat_screen';
+
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final _auth = FirebaseAuth.instance;
+  FirebaseUser loggedInUser;
+
+  final _firestore = Firestore.instance;
+
+  String messageText;
+
+  void getCurrentUser() async {
+    try {
+      final user = await _auth.currentUser();
+      if (user != null) {
+        loggedInUser = user;
+        print(loggedInUser.email + " has logged in");
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+  ......
+```
+
+Do this once the screen gets initiated
+
+``` 
+...
+@override
+  void initState() {
+    super.initState();
+    getCurrentUser();
+  }
+  ...
+```
+
+
+
+
+
+## Cloud Firestore
+
+**Cloud Firestore** is used as a **noSQL** database - which we can send and retrieve data from.
+
+> firebase is a more simplified database which uses json file type. Firestore has more features.
+
+All the keywords must be **exact**!
+
+### To send data:
+
+``` 
+FlatButton(
+                    onPressed: () {
+                      //Send message
+                      _firestore.collection('messages').add({
+                        'text': messageText,
+                        'sender': loggedInUser.email,
+                      });
+                    },
+                    child: Text(
+                      'Send',
+                      style: kSendButtonTextStyle,
+                    ),
+                  ),
+```
+
+
+
+
+
+
+
+### To retrieve data:
+
+#### One time snapshot (single data)
+
+```
+// example of retrieving data from 'messages' collection
+
+void getMessages() async {
+    final messages = await _firestore.collection('messages').getDocuments();
+    for(var message in messages.documents){
+      print
+    }
+  }
+```
+
+#### Retrieve as a stream of data (multiple data)
+
+##### Receive as data only
+
+```
+void messagesStream() async {
+    await for (var snapshot in _firestore.collection('messages').snapshots()) {
+      for (var message in snapshot.documents) {
+        print(message.data);
+      }
+    }
+  }
+```
+
+> It will **keep listening for changes**, and if there is, there will be a new snapshot sent - which you can decide what you want to do with it
+
+##### Receive as widget
+
+But if you want to package this data received into a widget eg chat messages, you can use **StreamBuilder**
+
+```
+...
+StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('messages').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.lightBlueAccent,
+                    ),
+                  );
+                }
+                  final messages = snapshot.data.documents;
+                  List<Text> messageWidgets = [];
+                  for (var message in messages) {
+                    final messageText = message.data['text'];
+                    final messageSender = message.data['sender'];
+
+                    final messageWidget = Text('$messageText from $messageSender');
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+
+
+              },
+            ),
+...
+```
+
+> If there are updates, a snapshot will be received and this will trigger the **builder** function, which you will have to specify how to build and return a widget.
 
 
 
@@ -3697,6 +3926,63 @@ Benefits tend to be with large programs with lots of classes that need to share 
 Having that shared capability split out into a mixin makes code easier to maintain.
 
 (you just need to edit the mixin and it will be reflected in classes that use the mixin)
+
+
+
+## Streams
+
+Similar to how **Future** is for a **single** object, a **Stream** is for **multiple** objects.    
+
+As long as we are subscribed to that stream, we will **get notified every time there is a new piece of data** that has been added to this pipeline or stream - **never ending** stream (unless we end it), that we can decide what we want to do with the new piece of data streaming in.    
+
+For instance in Firestore, it may look like this:
+
+```
+void messagesStream() async {
+    await for (var snapshot in _firestore.collection('messages').snapshots()){
+      for(var message in snapshot.documents){
+        print(message.data);
+      }
+    }
+  }
+```
+
+> the .snapshots() methods returns a **stream** of snapshots.
+
+To build widget from stream, we use the **StreamBuilder widget**:
+
+```
+... 
+StreamBuilder<QuerySnapshot>(
+              stream: _firestore.collection('messages').snapshots(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Colors.lightBlueAccent,
+                    ),
+                  );
+                }
+                  final messages = snapshot.data.documents;
+                  List<Text> messageWidgets = [];
+                  for (var message in messages) {
+                    final messageText = message.data['text'];
+                    final messageSender = message.data['sender'];
+
+                    final messageWidget = Text('$messageText from $messageSender');
+                    messageWidgets.add(messageWidget);
+                  }
+                  return Column(
+                    children: messageWidgets,
+                  );
+
+
+              },
+            ),
+...
+```
+
+> If there are updates, a snapshot will be received and this will trigger the **builder** function, which you will have to specify how to build and return a widget.
 
 
 
