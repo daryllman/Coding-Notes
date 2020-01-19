@@ -2869,6 +2869,29 @@ StreamBuilder<QuerySnapshot>(
 
 
 
+## Authorisation & Security Rules
+
+Important if you are putting this app in **production**! (As the default is public, so anyone can read and write)     
+
+Get started with **Firebase Security Rules** [here](https://firebase.google.com/docs/rules/get-started?authuser=0) and see the [cloud firestore security rules](https://firebase.google.com/docs/firestore/security/get-started)    
+
+Once you are done, there is the **Simulator** function on the same page that allows you to test your authentication and read/write data on the spot.
+
+#### Most Basic Rule (to allow only registered users)
+
+```
+// Allow read/write access on all documents to any user signed in to the application
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /{document=**} {
+      allow read, write: if request.auth.uid != null;
+    }
+  }
+}
+```
+
+
+
 <br/>
 
 
