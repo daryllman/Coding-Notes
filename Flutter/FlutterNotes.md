@@ -44,24 +44,25 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    1. HTTP Requests
 7. **Section 7: Animations**
    1. Hero Animation
-8. Publishing your Flutter Application**
+8. **Section 8: Firebase**
+9. Publishing your Flutter Application**
    1. Android
    2. iOS
-9. **Flutter Development Essentials**
+10. **Flutter Development Essentials**
    1. Flutter Packages
    2. 
-10. **Dart Language**
-   1. Print to Console
-   2. Functions
-   3. Data Types & Variables
-   4. String Interpolation
-   5. Classes
-   6. Enumeration
-   7. Ternary Operations
-   8. Functions as First Order Objects
-   9. Useful Libraries
-11. **Other Cool Open-Source Flutter Apps**
-12. ....
+11. **Dart Language**
+    1. Print to Console
+    2. Functions
+    3. Data Types & Variables
+    4. String Interpolation
+    5. Classes
+    6. Enumeration
+    7. Ternary Operations
+    8. Functions as First Order Objects
+    9. Useful Libraries
+12. **Other Cool Open-Source Flutter Apps**
+13. ....
 
 <br>
 
@@ -2608,12 +2609,32 @@ There is always a **beginning value** and an **end value**
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: animation.value,
-      ...
+     ...
 ```
 
 
 
 
+
+<br/>
+
+
+
+# Section 8: Firebase
+
+1) Create firebase project
+
+2) Add Android/iOS app (follow respective instructions)
+
+3) Add plugins that you intend to use      
+
+See the list of plugins [here](https://github.com/FirebaseExtended/flutterfire)      
+
+Common plugins:
+
+- [Firebase Core](https://pub.dev/packages/firebase_core)
+- [Firebase Auth](https://pub.dev/packages/firebase_auth)
+- [Cloud Firestore](https://pub.dev/packages/cloud_firestore)
 
 
 
