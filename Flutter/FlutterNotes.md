@@ -3092,6 +3092,14 @@ The [Flutter Cookbook](https://flutter.dev/docs/cookbook) contains all the basic
 - Plugins
 - Testing
 
+
+
+## Flutter Widget Index
+
+Scroll through the list of Flutter Widgets from the [Flutter Widget Index](https://flutter.dev/docs/reference/widgets) to quickly see all the important widgets that you may want to use/ to spark some ideas.
+
+
+
 <br/>
 
 
