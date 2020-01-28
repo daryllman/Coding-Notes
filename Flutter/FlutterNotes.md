@@ -1,4 +1,4 @@
-# Flutter Framework App Development
+Flutter Framework App Development
 
 Here are my simplified notes for Flutter App Development, using DART programming language.      
 
@@ -44,17 +44,18 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    1. HTTP Requests
 7. **Section 7: Animations**
    1. Hero Animation
-8. **Flutter State Management**
+8. **Section 8: Flutter State Management**
    1. Local State
    2. Global State
-9. **Section 8: Firebase**
-10. Publishing your Flutter Application**
-   1. Android
-   2. iOS
-11. **Flutter Development Essentials**
-   12. Flutter Packages
-   13. 
-14. **Dart Language**
+9. **Section 9: Firebase**
+10. **Section 10: Flutter App Architecture Patterns**
+11. Publishing your Flutter Application**
+    1. Android
+    2. iOS
+12. **Flutter Development Essentials**
+   13. Flutter Packages
+   14. 
+15. **Dart Language**
     1. Print to Console
     2. Functions
     3. Data Types & Variables
@@ -64,8 +65,8 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
     7. Ternary Operations
     8. Functions as First Order Objects
     9. Useful Libraries
-15. **Other Cool Open-Source Flutter Apps**
-16. ....
+16. **Other Cool Open-Source Flutter Apps**
+17. ....
 
 <br>
 
@@ -3032,6 +3033,38 @@ service cloud.firestore {
   }
 }
 ```
+
+
+
+<br/>
+
+
+
+
+
+# Section 10: Flutter App Architecture Patterns
+
+## MVC Architecture
+
+One of the most common app architecture patterns is the **MVC (Model View Controller) Architecture** - first popularized by Apple in iOS development       
+
+**Model**: Manages the data you have       
+
+**View**: Manages what goes onto the screen       
+
+**Controller**: Middleman between the Model and View       
+
+![MVC_diagram - credits AppBrewery](C:\Users\daryl\Desktop\CodingNotes\Flutter\MVC_diagram.jpg)
+
+- event happen (eg user tap on screen)
+
+- View will send data (about input event) to the controller
+
+- Controller will use these input events to decide what to do next
+
+- Can be making request to Model for data to decide what to do with View OR modifying View directly
+
+  
 
 
 
