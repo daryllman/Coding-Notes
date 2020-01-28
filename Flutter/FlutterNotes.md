@@ -1967,6 +1967,52 @@ const kTextFieldInputDecoration = InputDecoration(
 
 
 
+## ListView Widget
+
+[ListView ](https://api.flutter.dev/flutter/widgets/ListView-class.html) widget is the typical widget that displays  a list of same widgets.
+
+```
+...
+ListView(
+      children: <Widget>[
+        TaskTile(taskTitle: tasks[0].name, isChecked: tasks[0].isDone),
+        TaskTile(taskTitle: tasks[1].name, isChecked: tasks[1].isDone),
+        TaskTile(taskTitle: tasks[2].name, isChecked: tasks[2].isDone),
+      ],
+    );
+```
+
+However, in most cases, you do not want to hardcode the list of widgets. You want this to be built depending on the list of values being input - you use the **ListView.builder**
+
+
+
+### ListView Builder
+
+This is a more efficient way of displaying the list of items as imagine if the list is infinitely long. If the ListView has to load all the data at once, it will take up a lot of resources. For **ListView Builder**, it will only build & render what is needed to be *shown visibly* (the parts that we see) - this will save a lot of resources.
+
+```
+@override
+  Widget build(BuildContext context) {
+    return ListView.builder(
+      itemBuilder: (context, index) {
+        return TaskTile(
+          taskTitle: tasks[index].name,
+          isChecked: tasks[index].isDone,
+        );
+      },
+      itemCount: tasks.length,
+    );
+  }
+```
+
+> Look at how this is being implemented. Everything is dynamic with the use of index. ListView Builder saves a lot of hassle and inefficiency
+
+
+
+
+
+
+
 
 
 ## Composition over Inheritance
