@@ -44,14 +44,17 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
    1. HTTP Requests
 7. **Section 7: Animations**
    1. Hero Animation
-8. **Section 8: Firebase**
-9. Publishing your Flutter Application**
+8. **Flutter State Management**
+   1. Local State
+   2. Global State
+9. **Section 8: Firebase**
+10. Publishing your Flutter Application**
    1. Android
    2. iOS
-10. **Flutter Development Essentials**
-   1. Flutter Packages
-   2. 
-11. **Dart Language**
+11. **Flutter Development Essentials**
+   12. Flutter Packages
+   13. 
+14. **Dart Language**
     1. Print to Console
     2. Functions
     3. Data Types & Variables
@@ -61,8 +64,8 @@ Used for building iOS & Android Phone Apps, Web Apps, etc.
     7. Ternary Operations
     8. Functions as First Order Objects
     9. Useful Libraries
-12. **Other Cool Open-Source Flutter Apps**
-13. ....
+15. **Other Cool Open-Source Flutter Apps**
+16. ....
 
 <br>
 
@@ -2618,7 +2621,101 @@ There is always a **beginning value** and an **end value**
 
 
 
-# Section 8: Firebase
+# Section 8: Flutter State Management
+
+States control what the UI changes are. Some UI changes & states are localized, while some are related to more than one. There are 2 states - **Local State** & **Global State **    
+
+
+
+## Local State
+
+Local states are localized pieces of data that is not needed elsewhere across the app.
+
+> eg page numbers, clicking of checkboxes
+
+It is easy to use a setState() to toggle the value of the variable - with a **Stateful Widget**
+
+```
+var isChecked = false;
+...
+...
+
+setState((){
+	isChecked = true;
+})
+```
+
+
+
+## Global State
+
+Global States are pieces of data that is being kept and used across different parts of the app
+
+> For eg: If you click on a checkbox, besides checking off the checkbox, you also want the text to be striked off - notice that this variable has to be shared and use by the Text widget too.
+
+This is an example of how the isChecked variable will have effect on the checkbox and text widgets
+
+```
+import 'package:flutter/material.dart';
+
+class TaskTile extends StatefulWidget {
+  @override
+  _TaskTileState createState() => _TaskTileState();
+}
+
+class _TaskTileState extends State<TaskTile> {
+  bool isChecked = false;
+
+  void checkboxCallback(bool checkboxState) {
+    setState(() {
+      isChecked = checkboxState;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: Text(
+        'This is a task',
+        style: TextStyle(
+            decoration: isChecked ? TextDecoration.lineThrough : null),
+      ),
+      trailing: TaskCheckbox(
+        checkboxState: isChecked,
+        toggleCheckboxState: checkboxCallback,
+      ),
+    );
+  }
+}
+
+class TaskCheckbox extends StatelessWidget {
+  final bool checkboxState;
+  final Function toggleCheckboxState;
+
+  TaskCheckbox({this.checkboxState, this.toggleCheckboxState});
+
+  @override
+  Widget build(BuildContext context) {
+    return Checkbox(
+      activeColor: Colors.lightBlueAccent,
+      value: checkboxState,
+      onChanged: toggleCheckboxState,
+    );
+  }
+}
+```
+
+> Also note that the checkbox widget is a **Stateless Widget** housed in a **Stateful widget**      
+>
+> In this case, the *variables inside the stateless widget* has to be **declared final** with a constructor so that every time the variable changes, the stateless widget will be rebuilt again, to reflect the changes.
+
+
+
+
+
+<br/>
+
+# Section 9: Firebase
 
 1) Create firebase project
 
