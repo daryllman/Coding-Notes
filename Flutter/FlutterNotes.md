@@ -2758,7 +2758,19 @@ class TaskCheckbox extends StatelessWidget {
 
 
 
+## State Management
 
+There are many ways to manage the state of your app. (eg Redux, BloC, Inherited Widget, MVC, Scoped Model, MobX, Provider, Lifting State Up, etc...) and there is **no 'best' way** to do so - depends on what your app is and what is best suited for it.
+
+> Also good to consider that Flutter is still growing and evolving so people are still exploring what is the best way to manage states in Flutter.     
+
+> However, in the google I/O 19 conference, the **Provider Package** is recommended.
+
+### Provider Package
+
+Checkout the [provider package](https://pub.dev/packages/provider)    
+
+What Provider Package does is you can provide the data at any top level of the app and any bottom level will be able to retrieve this data - without the need of passing the data down the widget tree.
 
 <br/>
 
