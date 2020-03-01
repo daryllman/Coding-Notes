@@ -44,11 +44,17 @@ Redux is a state management that can be used in any framework, but it works part
 
 ### Why Redux?
 
-1. Keeps States **Predictable**
-2. Only serves as a **Storage** that is **Read-Only**
+1. Keeps States **Predictable** & **Easy to Manage**
+
+2. Only serves as a Central **Storage** that is **Read-Only**
+
 3. Can only use **Reducer** functions to edit the states
-4. Access states anywhere in the app with **Inject**
-5. 
+
+4. Access states/data anywhere in the app with **Inject**
+
+   > Instead of passing all the way down the component tree through props
+
+5. sd
 
 > The way to manage states in small-scale apps are through **Component States**            
 >
